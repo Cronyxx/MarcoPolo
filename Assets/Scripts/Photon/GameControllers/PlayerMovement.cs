@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PhotonView PV;
-    private CharacterController myCC;
+    private Rigidbody2D RB;
     public float movementSpeed;
     public float rotationSpeed;
 
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         PV = GetComponent<PhotonView>();
-        myCC = GetComponent<CharacterController>();
+        RB = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -29,30 +29,37 @@ public class PlayerMovement : MonoBehaviour
 
     void BasicMovement()
     {
+        Vector3 endPosition = Vector3.zero;
         if (Input.GetAxis("Vertical") > 0)
         {
-            myCC.Move(transform.up * Time.deltaTime * movementSpeed);
+            endPosition += transform.up;
         }
 
         if (Input.GetAxis("Vertical") < 0)
         {
-            myCC.Move(-transform.up * Time.deltaTime * movementSpeed);
+            endPosition -= transform.up;
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            myCC.Move(transform.right * Time.deltaTime * movementSpeed);
+            endPosition += transform.right;
         }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            myCC.Move(-transform.right * Time.deltaTime * movementSpeed);
+            endPosition -= transform.right;
         }
+        RB.MovePosition(transform.position + endPosition * Time.deltaTime * movementSpeed);
     }
 
     void BasicRotation()
     {
         float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
         transform.Rotate(new Vector3(0, mouseX, 0));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Hit a wall");
     }
 }
