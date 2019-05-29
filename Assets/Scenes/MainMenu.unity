@@ -279,8 +279,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 1
-  InstantiationId: 1
+  viewIdField: 999
+  InstantiationId: 999
   isRuntimeInstantiated: 0
 --- !u!114 &609722398
 MonoBehaviour:
@@ -294,8 +294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135fc58a2093640b7b06b3da0300eba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGameLoaded: 0
   currentScene: 0
-  multiplayerScene: 1
+  playersInRoom: 0
+  myNumberInRoom: 0
+  playerInGame: 0
+  startingTime: 10
 --- !u!4 &609722399
 Transform:
   m_ObjectHideFlags: 0
@@ -1148,6 +1152,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854846032}
   m_CullTransparentMesh: 0
+--- !u!1 &1890884988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1890884990}
+  - component: {fileID: 1890884989}
+  m_Layer: 0
+  m_Name: MultiplayerSetting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1890884989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890884988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89db51f7332484c56be357446bb20631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayStart: 1
+  maxPlayers: 4
+  MenuScene: 0
+  multiplayerScene: 1
+--- !u!4 &1890884990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890884988}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 473.6651, y: 294.7192, z: -1289.2413}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052825070
 GameObject:
   m_ObjectHideFlags: 0
