@@ -30,22 +30,22 @@ public class PlayerMovement : MonoBehaviour
     void BasicMovement()
     {
         Vector3 endPosition = Vector3.zero;
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxisRaw("Vertical") > 0)
         {
             endPosition += transform.up;
         }
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxisRaw("Vertical") < 0)
         {
             endPosition -= transform.up;
         }
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxisRaw("Horizontal") > 0)
         {
             endPosition += transform.right;
         }
 
-        if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxisRaw("Horizontal") < 0)
         {
             endPosition -= transform.right;
         }
