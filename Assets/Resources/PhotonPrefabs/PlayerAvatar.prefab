@@ -128,7 +128,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6418408388921461828}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -255,6 +255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 2211457578315057661}
   myAL: {fileID: 5852103885527497028}
+  myCharacter: {fileID: 0}
+  characterValue: 0
 --- !u!58 &5725954276027732265
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -266,7 +268,7 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2

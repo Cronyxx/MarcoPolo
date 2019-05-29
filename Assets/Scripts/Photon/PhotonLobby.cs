@@ -18,7 +18,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings(); //Connects to Master photon server
+        if (!PhotonNetwork.IsConnected)
+            PhotonNetwork.ConnectUsingSettings(); //Connects to Master photon server
     }
 
     public override void OnConnectedToMaster()

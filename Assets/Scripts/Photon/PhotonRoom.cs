@@ -36,11 +36,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         PV = GetComponent<PhotonView>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override void OnEnable()
     {
@@ -89,5 +84,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private void CreatePlayer()
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity, 0);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        Debug.Log(otherPlayer.NickName + " has left the game");
     }
 }

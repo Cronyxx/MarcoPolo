@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSetup : MonoBehaviour
 {
@@ -14,5 +16,19 @@ public class GameSetup : MonoBehaviour
         {
             GameSetup.GS = this;
         }
+    }
+
+    public void DisconnectPlayer()
+    {
+        Destroy(PhotonRoom.room.gameObject);
+        StartCoroutine(DisconnectAndLoad());
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.LeaveRoom();
+        while (PhotonNetwork.InRoom)
+            yield return null;
+        SceneManager.LoadScene(0);
     }
 }
