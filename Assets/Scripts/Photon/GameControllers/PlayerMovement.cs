@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PhotonView PV;
+    private MarcoPoloGameManager GM;
     private Rigidbody2D RB;
     public float movementSpeed;
     public float rotationSpeed;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         RB = GetComponent<Rigidbody2D>();
+        GM = GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>();
     }
 
     // Update is called once per frame
@@ -60,6 +62,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit a wall");
+        if(collision.gameObject.GetPhotonView() != null) {
+            bool isOtherHunter = (bool) collision.gameObject
+                                .GetPhotonView()
+                                .Owner
+                                .CustomProperties[MarcoPoloGame.IS_HUNTER];
+
+            if(isOtherHunter) 
+            {
+                GM.HunterTouchEvent();
+            }
+        }
+        
+        
     }
 }

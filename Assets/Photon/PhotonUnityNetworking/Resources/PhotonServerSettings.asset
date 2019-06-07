@@ -35,5 +35,16 @@ MonoBehaviour:
   - RPC_AddCharacter
   - RPC_CreatePlayer
   - RPC_LoadedGameScene
+  - SetInfoText
+  - RPC_SetInfoText
+  - RPC_SetRoundText
+  - RPC_InitPlayer
+  - RPC_SetHunterId
+  - RPC_SetTimerText
+  - RPC_GameStart
+  - RPC_StartTimer
+  - RPC_StartPreRound
+  - RPC_StartRoundTimer
+  - RPC_EndRound
   DisableAutoOpenWizard: 1
   ShowSettings: 1

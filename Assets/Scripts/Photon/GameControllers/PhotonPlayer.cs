@@ -18,7 +18,10 @@ public class PhotonPlayer : MonoBehaviour
         {
             myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar"), GameSetup.GS.spawnPoints[spawnerPicker].position,
                 GameSetup.GS.spawnPoints[spawnerPicker].rotation, 0);
+            myAvatar.tag = "Player";
         }
+
+        
     }
 
 }
