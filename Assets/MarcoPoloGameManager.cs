@@ -63,7 +63,10 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
     // (MASTER ONLY) This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
     private IEnumerator StartPreRound() {
-        Debug.Log("Conditions are met! Starting round...");
+        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
+        playerObj.GetComponent<PhotonPlayer>().SetLightAll();
+        
+        Debug.Log("Conditions for a game are met! Starting round...");
         float timer = (float) MarcoPoloGame.PRE_ROUND_TIME;
 
         roundsText.text = "Pre-round...";
@@ -83,7 +86,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             StartRound();
         }
-        
+
     }
     
     // (MASTER ONLY) This function starts each round, initialising the local player & also selecting the hunter
@@ -126,6 +129,10 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(IsGameOver()) 
         {
             Debug.Log("Game is over! Please get out.");
+            GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
+            playerObj.GetComponent<PhotonPlayer>().SetLightHunter();
+            
+            PV.RPC("RPC_SetInfoText", RpcTarget.All, "Game over! Leave now.");
         } 
         else 
         {
@@ -252,6 +259,15 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hunterProps);
+        
+        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
+        playerObj.GetComponent<PhotonPlayer>().SetLightHunter();
+    }
+
+    void SetHunted()
+    {
+        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
+        playerObj.GetComponent<PhotonPlayer>().SetLightHunted();
     }
 
     #endregion
@@ -278,9 +294,10 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("I'm the hunter!");
             SetHunter();
+
         } else 
         {
-            InitPlayer();
+            SetHunted();
         }
     }
 
