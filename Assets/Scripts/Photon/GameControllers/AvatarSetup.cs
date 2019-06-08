@@ -31,5 +31,7 @@ public class AvatarSetup : MonoBehaviourPun
         myCharacter = Instantiate(PlayerInfo.PI.allCharacters[whichCharacter], transform.position,
             transform.rotation, transform); 
         myCharacter.tag = "Player";
+
+        myCharacter.GetComponent<Renderer>().material.shader = Resources.Load<Material>("Materials/Sprite_Material").shader;
     }
 }

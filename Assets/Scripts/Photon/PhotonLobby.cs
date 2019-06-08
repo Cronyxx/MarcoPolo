@@ -8,8 +8,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 {
     public static PhotonLobby lobby;
 
-    public GameObject playButton;
-    public GameObject cancelButton;
+    public GameObject playButton, cancelButton, offlineButton;
 
     private void Awake()
     {
@@ -26,6 +25,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player has connected to the Photon Master server.");
         PhotonNetwork.AutomaticallySyncScene = true;
+        offlineButton.SetActive(false);
         playButton.SetActive(true);
     }
 

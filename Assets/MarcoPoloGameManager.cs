@@ -11,7 +11,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 {
-    public Text infoText, roundsText, roundTimerText;
+    public Text infoText, roundTimerText, masterClientText;
     private PhotonView PV;
 
     bool gameInProgress, roundInProgress;
@@ -28,6 +28,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) 
         {
             InitRoom();
+            masterClientText.text = "MASTER";
         }
         
     }
@@ -68,9 +69,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         
         Debug.Log("Conditions for a game are met! Starting round...");
         float timer = (float) MarcoPoloGame.PRE_ROUND_TIME;
-
-        roundsText.text = "Pre-round...";
-        PV.RPC("RPC_SetRoundText", RpcTarget.Others, roundsText.text);
         
         while(timer >= 0.0f) 
         {
@@ -107,8 +105,8 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         
         roundInProgress = true;
 
-        roundsText.text = "Round: " + roundsProgress;
-        PV.RPC("RPC_SetRoundText", RpcTarget.Others, roundsText.text);
+        infoText.text = string.Format("Round {0} of {1}", roundsProgress, MarcoPoloGame.ROUNDS_PER_GAME);
+        PV.RPC("RPC_SetInfoText", RpcTarget.Others, infoText.text);
 
         playersAlive = MarcoPoloGame.PLAYERS_IN_MATCH - 1;
 
@@ -240,9 +238,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsMasterClient) {
             hunterId = UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length);
-
-            RPC_SetInfoText("Hunter is " + hunterId);
-            PV.RPC("RPC_SetInfoText", RpcTarget.Others, infoText.text);
             
             RPC_SetHunterId(hunterId);
             PV.RPC("RPC_SetHunterId", RpcTarget.Others, hunterId);
@@ -277,12 +272,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     void RPC_SetInfoText(string text)
     {
         infoText.text = text;
-    }
-
-    [PunRPC]
-    void RPC_SetRoundText(string text)
-    {
-        roundsText.text = text;
     }
 
     [PunRPC]
