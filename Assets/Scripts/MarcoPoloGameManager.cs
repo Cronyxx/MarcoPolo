@@ -43,8 +43,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
                     && !gameInProgress)
             {
                 gameInProgress = true;
-                StartCoroutine(StartPreRound());
-                PV.RPC("RPC_StartPreRound", RpcTarget.Others);
+                PV.RPC("RPC_StartPreRound", RpcTarget.All);
             }
         }
 
@@ -62,8 +61,9 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
     }
 
-    // (MASTER ONLY) This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
+    // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
     private IEnumerator StartPreRound() {
+        
         GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
         playerObj.GetComponent<PhotonPlayer>().SetLightAll();
         
@@ -105,8 +105,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         
         roundInProgress = true;
 
-        infoText.text = string.Format("Round {0} of {1}", roundsProgress, MarcoPoloGame.ROUNDS_PER_GAME);
-        PV.RPC("RPC_SetInfoText", RpcTarget.Others, infoText.text);
+        PV.RPC("RPC_SetInfoText", RpcTarget.All, string.Format("Round {0} of {1}", roundsProgress, MarcoPoloGame.ROUNDS_PER_GAME));
 
         playersAlive = MarcoPoloGame.PLAYERS_IN_MATCH - 1;
 
