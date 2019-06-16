@@ -111,8 +111,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
         SelectHunter();
 
-        StartCoroutine(StartRoundTimer());
-        PV.RPC("RPC_StartRoundTimer", RpcTarget.Others);
+        PV.RPC("RPC_StartRoundTimer", RpcTarget.All);
     }
 
     // This function ends each round, and checks if the game is over. If not, it continues with the next pre-round and the game continues.
@@ -127,7 +126,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Game is over! Please get out.");
             GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
-            playerObj.GetComponent<PhotonPlayer>().SetLightHunter();
+            playerObj.GetComponent<PhotonPlayer>().SetLightAll();
             
             PV.RPC("RPC_SetInfoText", RpcTarget.All, "Game over! Leave now.");
         } 
@@ -238,8 +237,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) {
             hunterId = UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length);
             
-            RPC_SetHunterId(hunterId);
-            PV.RPC("RPC_SetHunterId", RpcTarget.Others, hunterId);
+            PV.RPC("RPC_SetHunterId", RpcTarget.All, hunterId);
         }
     }
 

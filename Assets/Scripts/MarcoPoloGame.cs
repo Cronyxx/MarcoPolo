@@ -18,4 +18,10 @@ public class MarcoPoloGame {
     public const float LIGHT_INT_HUNTER = 0.0f;
 
     #endregion
+
+    #region GAME SETTINGS
+    public const float PROJECTILE_PULSE_DUR = 3.0f;
+    public const float PROJECTILE_SPD = 5.0f;
+
+    #endregion
 }

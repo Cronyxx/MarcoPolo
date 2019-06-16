@@ -34,14 +34,14 @@ public class PlayerMovement : MonoBehaviour
         {
             BasicMovement();
             BasicRotation();
-
-            if (isMoving && currTime > nextEcho)
-            {
-                PS.Emit(300);
-                currTime = 0;
-            }
-            currTime += Time.deltaTime;
         }
+
+        if (isMoving && currTime > nextEcho)
+        {
+            PS.Emit(300);
+            currTime = 0;
+        }
+        currTime += Time.deltaTime;
     }
 
     private void BasicMovement()
@@ -102,8 +102,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // No contact was found so move the full velocity.
-        RB.MovePosition(RB.position + velocity);
-
+        RB.MovePosition(RB.position + velocity); 
     }
 
     void BasicRotation()
@@ -125,7 +124,5 @@ public class PlayerMovement : MonoBehaviour
                 GM.HunterTouchEvent();
             }
         }
-        
-        
     }
 }
