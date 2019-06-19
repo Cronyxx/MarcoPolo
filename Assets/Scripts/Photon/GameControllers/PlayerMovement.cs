@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(new Vector3(0, mouseX, 0));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D (Collision2D collision)
     {
         if(collision.gameObject.GetPhotonView() != null) {
             bool isOtherHunter = (bool) collision.gameObject
