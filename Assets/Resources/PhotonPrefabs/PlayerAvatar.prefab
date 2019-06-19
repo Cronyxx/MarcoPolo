@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 2047485506}
   - component: {fileID: 2047485507}
   - component: {fileID: 428092079376099838}
+  - component: {fileID: -4287828644318430393}
   m_Layer: 0
   m_Name: PlayerAvatar
   m_TagString: Untagged
@@ -221,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23a4761295a447378f10619c6199478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextEcho: 1
+  isMoving: 0
   movementSpeed: 10
   rotationSpeed: 0
 --- !u!50 &-4979242751392438256
@@ -5011,3 +5012,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 7119387932834807831, guid: 95e7284483d417e418409ebb4c34f41a,
     type: 3}
+--- !u!114 &-4287828644318430393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1197fac808c49a5b71f82f451fc73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextEcho: 1

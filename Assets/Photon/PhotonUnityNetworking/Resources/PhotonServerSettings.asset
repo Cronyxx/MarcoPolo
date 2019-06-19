@@ -47,5 +47,6 @@ MonoBehaviour:
   - RPC_StartRoundTimer
   - RPC_EndRound
   - RPC_Fire
+  - RPC_EmitSoundWave
   DisableAutoOpenWizard: 1
   ShowSettings: 1

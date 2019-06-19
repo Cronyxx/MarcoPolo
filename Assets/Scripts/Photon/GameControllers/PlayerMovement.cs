@@ -9,10 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView PV;
     private MarcoPoloGameManager GM;
     private Rigidbody2D RB;
-    private ParticleSystem PS;
-    private bool isMoving;
-    private float currTime;
-    public float nextEcho;
+    public bool isMoving;
     public float movementSpeed;
     public float rotationSpeed;
     private RaycastHit2D[] m_Contacts = new RaycastHit2D[100];
@@ -22,10 +19,8 @@ public class PlayerMovement : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         RB = GetComponent<Rigidbody2D>();
-        PS = GetComponent<ParticleSystem>();
         GM = GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>();
         isMoving = false;
-        currTime = 0;
     }
     
     void FixedUpdate()
@@ -35,13 +30,6 @@ public class PlayerMovement : MonoBehaviour
             BasicMovement();
             BasicRotation();
         }
-
-        if (isMoving && currTime > nextEcho)
-        {
-            PS.Emit(300);
-            currTime = 0;
-        }
-        currTime += Time.deltaTime;
     }
 
     private void BasicMovement()
