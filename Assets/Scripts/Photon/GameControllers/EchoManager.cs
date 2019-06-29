@@ -20,12 +20,13 @@ public class EchoManager : MonoBehaviour
         currTime = 0;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         {
-            PV.RPC("RPC_EmitSoundWave", RpcTarget.All);
+            Debug.Log("Send Echolocation");
+            Debug.Log("custom props" + (bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER]);
+            PV.RPC("RPC_EmitSoundWave", RpcTarget.AllViaServer);
             currTime = 0;
         }
         currTime += Time.deltaTime;

@@ -62,6 +62,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     }
 
     // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
+    // maybe should destroy cooroutine after preround
     private IEnumerator StartPreRound() {
         
         GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
@@ -258,6 +259,13 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
     void SetHunted()
     {
+        Hashtable huntedProps = new Hashtable
+        {
+            { MarcoPoloGame.IS_ALIVE, true },
+            { MarcoPoloGame.IS_HUNTER, false }
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(huntedProps);
         GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
         playerObj.GetComponent<PhotonPlayer>().SetLightHunted();
     }
@@ -272,11 +280,11 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_SetHunterId(int hunterId)
+    void RPC_SetHunterId(int newHunterId)
     {
-        this.hunterId = hunterId;
+        this.hunterId = newHunterId;
 
-        if(PhotonNetwork.PlayerList[hunterId] == PhotonNetwork.LocalPlayer) 
+        if(PhotonNetwork.PlayerList[newHunterId] == PhotonNetwork.LocalPlayer) 
         {
             Debug.Log("I'm the hunter!");
             SetHunter();
