@@ -14,8 +14,8 @@ TagManager:
   - 
   - 
   - Wall
-  - 
-  - 
+  - Projectile
+  - Player
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3051456331
+    locked: 0
+  - name: Projectile
+    uniqueID: 4068144873
     locked: 0

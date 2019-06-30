@@ -22,7 +22,6 @@ public class Echolocation : MonoBehaviour
     {
         if (PV.IsMine && (bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] && Input.GetButton("Jump") && currTime > coolDown)
         {
-            Debug.Log("echolocation " + (bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER]);
             PV.RPC("RPC_Echolocate", RpcTarget.AllViaServer);
             currTime = 0;
         }

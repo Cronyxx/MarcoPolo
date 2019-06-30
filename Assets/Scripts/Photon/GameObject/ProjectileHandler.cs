@@ -21,7 +21,7 @@ public class ProjectileHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PV.IsMine)
+        if (PV.IsMine && !(bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         {
             if (Input.GetButton("Jump") && projectileDelay <= 0.0)
             {
@@ -45,7 +45,7 @@ public class ProjectileHandler : MonoBehaviour
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
         GameObject projectile;
 
-        projectile = Instantiate(ProjectilePrefab, transform.position, transform.rotation, transform);
+        projectile = Instantiate(ProjectilePrefab, transform.position, transform.rotation);
         projectile.GetComponent<Projectile>().InitProjectile(PV.Owner, new Vector2(1, 0), Mathf.Abs(lag));
     }
 }
