@@ -10,7 +10,7 @@ public class ProjectileHandler : MonoBehaviour
     public GameObject ProjectilePrefab;
     private PhotonView PV;
     private Rigidbody2D RB;
-    private float projectileDelay = 0.05f;
+    private float projectileDelay = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +25,7 @@ public class ProjectileHandler : MonoBehaviour
         {
             if (Input.GetButton("Jump") && projectileDelay <= 0.0)
             {
-                projectileDelay = 0.1f;
+                projectileDelay = 2.0f;
 
                 PV.RPC("RPC_Fire", RpcTarget.All, RB.position);
             }
