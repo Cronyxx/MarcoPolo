@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -38,4 +39,10 @@ public class PlayerInfo : MonoBehaviour
             PlayerPrefs.SetInt("MyCharacter", mySelectedCharacter);
         }
     }
+
+    public void SetNickName(string name) 
+    {
+        PhotonNetwork.NickName = name;
+    }
+
 }

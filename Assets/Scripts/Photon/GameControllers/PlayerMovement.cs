@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PhotonView PV;
     private MarcoPoloGameManager GM;
+    private ScoreManager SM;
     private Rigidbody2D RB;
     public bool isMoving;
     public float movementSpeed;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         PV = GetComponent<PhotonView>();
         RB = GetComponent<Rigidbody2D>();
         GM = GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>();
+        SM = GameObject.Find("GameManager").GetComponent<ScoreManager>();
         isMoving = false;
     }
     
@@ -110,6 +112,11 @@ public class PlayerMovement : MonoBehaviour
             if(isOtherHunter) 
             {
                 GM.HunterTouchEvent();
+               
+                if(GM.roundInProgress)
+                {
+                    SM.CalcScore(collision.gameObject.GetPhotonView().Owner, this.gameObject.GetPhotonView().Owner);
+                }
             }
         }
     }

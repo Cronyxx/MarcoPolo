@@ -11,10 +11,13 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 {
-    public Text infoText, roundTimerText, masterClientText;
+    public Text infoText, roundTimerText, masterClientText, hunterText;
     private PhotonView PV;
+    private ScoreManager SM;
 
-    bool gameInProgress, roundInProgress;
+    public bool gameInProgress, roundInProgress;
+
+    public float roundTimer;
 
     int hunterId;
 
@@ -24,6 +27,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PV = GetComponent<PhotonView>();
+        SM = GetComponent<ScoreManager>();
 
         if(PhotonNetwork.IsMasterClient) 
         {
@@ -93,8 +97,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Round is starting!");
 
-        InitPlayer();
-
         int roundsProgress = (int) PhotonNetwork.CurrentRoom.CustomProperties[MarcoPoloGame.ROUNDS_PROGRESS];
         roundsProgress ++;
         Hashtable roomProps = new Hashtable() 
@@ -123,6 +125,8 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         StopAllCoroutines();
         roundInProgress = false;
 
+        SM.CalcScore(PhotonNetwork.PlayerList[hunterId], PhotonNetwork.LocalPlayer, true);
+
         if(IsGameOver()) 
         {
             Debug.Log("Game is over! Please get out.");
@@ -133,6 +137,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         } 
         else 
         {
+            
             Debug.Log("Game is not over! We'll proceed with the next round.");
             StartCoroutine(StartPreRound());
         }
@@ -142,7 +147,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     // Function to start the round timer
     private IEnumerator StartRoundTimer() 
     {   
-        float roundTimer = (float) MarcoPoloGame.ROUND_TIME;
+        roundTimer = (float) MarcoPoloGame.ROUND_TIME;
 
         while(roundTimer >= 0) 
         {
@@ -155,6 +160,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(roundTimer <= 0.0f) 
         {
             EndRound();
+
         }
     }
 
@@ -185,17 +191,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     #endregion
 
     #region Player Related Functions
-    // This function initialises the player's settings with it being alive and not the hunter
-    void InitPlayer()
-    {
-        Hashtable initProps = new Hashtable
-        {
-            { MarcoPoloGame.IS_ALIVE, true },
-            { MarcoPoloGame.IS_HUNTER, false }
-        };
-        
-        PhotonNetwork.LocalPlayer.SetCustomProperties(initProps);
-    }
+    
 
     // Function to kill the player: just sets the player's alive settings to false
     void KillPlayer() 
@@ -283,6 +279,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     void RPC_SetHunterId(int newHunterId)
     {
         this.hunterId = newHunterId;
+        hunterText.text = "Hunter is " + PhotonNetwork.PlayerList[newHunterId].NickName;
 
         if(PhotonNetwork.PlayerList[newHunterId] == PhotonNetwork.LocalPlayer) 
         {

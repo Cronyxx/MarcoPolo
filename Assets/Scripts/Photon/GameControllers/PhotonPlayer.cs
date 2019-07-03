@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using System.IO;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
 {
@@ -24,7 +25,20 @@ public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
             myAvatar.tag = "Player";
         
             InitLight();
+            InitPlayer();
         }
+    }
+
+    // This function initialises the player's settings with it being alive and not the hunter
+    void InitPlayer()
+    {
+        Hashtable initProps = new Hashtable
+        {
+            { MarcoPoloGame.IS_ALIVE, true },
+            { MarcoPoloGame.IS_HUNTER, false }
+        };
+        
+        PhotonNetwork.LocalPlayer.SetCustomProperties(initProps);
     }
 
     public void InitLight() 

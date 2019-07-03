@@ -20,7 +20,10 @@ public class Echolocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PV.IsMine && (bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] && Input.GetButton("Jump") && currTime > coolDown)
+        if (PV.IsMine 
+            && (bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] 
+            && Input.GetButton("Jump") 
+            && currTime > coolDown)
         {
             PV.RPC("RPC_Echolocate", RpcTarget.AllViaServer);
             currTime = 0;
@@ -29,7 +32,7 @@ public class Echolocation : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_Echolocate ()
+    private void RPC_Echolocate()
     {
         PS.Emit(300);
     }
