@@ -5031,7 +5031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1197fac808c49a5b71f82f451fc73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextEcho: 1
 --- !u!114 &-9071332828433970339
 MonoBehaviour:
   m_ObjectHideFlags: 0

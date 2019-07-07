@@ -16,6 +16,8 @@ public class GameSetup : MonoBehaviour
         {
             GameSetup.GS = this;
         }
+
+        Application.targetFrameRate = 60;
     }
 
     public void DisconnectPlayer()

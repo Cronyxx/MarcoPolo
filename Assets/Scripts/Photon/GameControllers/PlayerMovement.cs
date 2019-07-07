@@ -9,20 +9,32 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView PV;
     private MarcoPoloGameManager GM;
     private ScoreManager SM;
+    private SkillbarController SC;
     private Rigidbody2D RB;
     public bool isMoving;
     public float movementSpeed;
     public float rotationSpeed;
     private RaycastHit2D[] m_Contacts = new RaycastHit2D[100];
 
+    private float dashTimer;
+    bool hasJustDashed;
+
+    Vector2 velocity = Vector2.zero;
+
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
         RB = GetComponent<Rigidbody2D>();
+        RB.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
+
         GM = GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>();
         SM = GameObject.Find("GameManager").GetComponent<ScoreManager>();
+        SC = GameObject.Find("Canvas/Skillbar").GetComponent<SkillbarController>();
         isMoving = false;
+
+        dashTimer = 0.0f;
+        hasJustDashed = false;
     }
     
     void FixedUpdate()
@@ -31,13 +43,13 @@ public class PlayerMovement : MonoBehaviour
         {
             BasicMovement();
             BasicRotation();
+            Dash();
         }
     }
 
     private void BasicMovement()
     {
         // Set initial velocity as zero.
-        var velocity = Vector2.zero;
 
         if (Input.GetAxisRaw("Vertical") > 0)
         {
@@ -101,6 +113,30 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(new Vector3(0, mouseX, 0));
     }
 
+    void Dash()
+    {
+        
+        // if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+        // {
+            if (Input.GetKeyDown(KeyCode.Z) && isMoving && !hasJustDashed)
+            {
+                RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
+                hasJustDashed = true;
+                SC.dashIsCooldown = true;
+            }
+
+            if(hasJustDashed)
+            {
+                dashTimer += Time.deltaTime;
+                if(dashTimer > MarcoPoloGame.DASH_CD)
+                {
+                    hasJustDashed = false;
+                    dashTimer = 0.0f;
+                }
+            }
+            
+        // }
+    }
     private void OnCollisionStay2D (Collision2D collision)
     {
         if(collision.gameObject.GetPhotonView() != null) {

@@ -23,5 +23,8 @@ public class MarcoPoloGame {
     public const float PROJECTILE_PULSE_DUR = 3.0f;
     public const float PROJECTILE_SPD = 5.0f;
 
+    public const float ECHO_DELAY = 1.0f;
+    public const float DASH_CD = 2.0f;
+
     #endregion
 }

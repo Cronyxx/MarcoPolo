@@ -9,7 +9,7 @@ public class EchoManager : MonoBehaviour
     private ParticleSystem PS;
     private PlayerMovement PM;
     private float currTime;
-    public float nextEcho;
+    private float nextEcho = MarcoPoloGame.ECHO_DELAY;
 
     // Start is called before the first frame update
     void Start()

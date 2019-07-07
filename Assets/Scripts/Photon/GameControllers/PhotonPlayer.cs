@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Photon.Pun;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
 {
     private PhotonView PV;
     public GameObject myAvatar;
-    private GameObject PlayerLight;
+    private GameObject PlayerLight, NickName;
     private Light myLight;
     // Start is called before the first frame update
     void Start()
