@@ -10,8 +10,7 @@ public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
 {
     private PhotonView PV;
     public GameObject myAvatar;
-    private GameObject PlayerLight, NickName;
-    private Light myLight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +23,6 @@ public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
                 GameSetup.GS.spawnPoints[spawnerPicker].rotation, 0);
 
             myAvatar.tag = "Player";
-        
-            InitLight();
             InitPlayer();
         }
     }
@@ -35,48 +32,11 @@ public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
     {
         Hashtable initProps = new Hashtable
         {
-            { MarcoPoloGame.IS_ALIVE, true },
-            { MarcoPoloGame.IS_HUNTER, false }
+            { MarcoPoloGame.IS_ALIVE, null },
+            { MarcoPoloGame.IS_HUNTER, null }
         };
         
         PhotonNetwork.LocalPlayer.SetCustomProperties(initProps);
-    }
-
-    public void InitLight() 
-    {
-        PlayerLight = new GameObject("Player Light");
-        PlayerLight.transform.position = new Vector3(myAvatar.transform.position.x, myAvatar.transform.position.y, -4.0f);
-        PlayerLight.transform.SetParent(myAvatar.transform);
-        myLight = PlayerLight.AddComponent<Light>();
-        myLight.type = LightType.Directional;
-        myLight.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;    
-    }
-
-    public void SetLightAll()
-    {
-        if (PV.IsMine) 
-        {
-            myLight.type = LightType.Directional;
-            myLight.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;    
-        }
-    }
-
-    public void SetLightHunted() 
-    {
-        if (PV.IsMine) 
-        {
-            myLight.type = LightType.Spot;
-            myLight.intensity = MarcoPoloGame.LIGHT_INT_HUNTED;
-            myLight.spotAngle = 90.0f;
-        }
-    }
-
-    public void SetLightHunter()
-    {
-        if (PV.IsMine) 
-        {
-            myLight.intensity = MarcoPoloGame.LIGHT_INT_HUNTER;
-        }
     }
 
     public void OnPhotonInstantiate(PhotonMessageInfo info) 

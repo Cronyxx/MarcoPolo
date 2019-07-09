@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class MarcoPoloGame {
+public static class MarcoPoloGame
+{
     public const int ROUNDS_PER_GAME = 4;
     public const int PLAYERS_IN_MATCH = 2;
     public const int ROUND_TIME = 60;

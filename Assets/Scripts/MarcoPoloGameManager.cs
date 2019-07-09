@@ -14,6 +14,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     public Text infoText, roundTimerText, masterClientText, hunterText;
     private PhotonView PV;
     private ScoreManager SM;
+    private LightManager LM;
 
     public bool gameInProgress, roundInProgress;
 
@@ -67,10 +68,10 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
     // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
     // maybe should destroy cooroutine after preround
-    private IEnumerator StartPreRound() {
-        
-        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
-        playerObj.GetComponent<PhotonPlayer>().SetLightAll();
+    private IEnumerator StartPreRound()
+    {
+        LM = GameObject.Find("PlayerAvatar(Clone)").GetComponent<LightManager>();
+        LM.SetLightAll();
         
         Debug.Log("Conditions for a game are met! Starting round...");
         float timer = (float) MarcoPoloGame.PRE_ROUND_TIME;
@@ -130,8 +131,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(IsGameOver()) 
         {
             Debug.Log("Game is over! Please get out.");
-            GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
-            playerObj.GetComponent<PhotonPlayer>().SetLightAll();
+            LM.SetLightAll();
             
             PV.RPC("RPC_SetInfoText", RpcTarget.All, "Game over! Leave now.");
         } 
@@ -202,7 +202,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(deadProps);
-        playersAlive --;
+        playersAlive--;
     }
 
     // Function to handle the case where the current player has come into contact with a hunter
@@ -248,9 +248,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(hunterProps);
-        
-        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
-        playerObj.GetComponent<PhotonPlayer>().SetLightHunter();
+        LM.SetLightHunter();
     }
 
     void SetHunted()
@@ -262,8 +260,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(huntedProps);
-        GameObject playerObj = (GameObject) PhotonNetwork.LocalPlayer.TagObject;
-        playerObj.GetComponent<PhotonPlayer>().SetLightHunted();
+        LM.SetLightHunted();
     }
 
     #endregion

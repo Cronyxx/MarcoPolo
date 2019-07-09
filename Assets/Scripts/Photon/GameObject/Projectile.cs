@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class Projectile : MonoBehaviour
 {
-    public GameObject PulsePrefab;
+    public GameObject HuntedPulse;
     public Player Owner { get; private set; }
     void Start()
     {
@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
 
     void CreatePulse()
     {
-        GameObject pulse = Instantiate(PulsePrefab, transform.position, Quaternion.identity);
+        GameObject pulse = Instantiate(HuntedPulse, transform.position, Quaternion.identity);
         pulse.GetComponent<ParticleSystem>().Emit(300);
         
         Destroy(pulse, MarcoPoloGame.PROJECTILE_PULSE_DUR);

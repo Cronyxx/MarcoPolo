@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fc22e853d7ee34f80ab2a80406131f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PulsePrefab: {fileID: 5868026779489845243, guid: 79f72204c188f3941a7032000b0dabb6,
+  HuntedPulse: {fileID: 5868026779489845243, guid: 79f72204c188f3941a7032000b0dabb6,
     type: 3}
 --- !u!212 &8498028061621865821
 SpriteRenderer:

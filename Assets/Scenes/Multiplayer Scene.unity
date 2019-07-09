@@ -4851,6 +4851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashCooldownImage: {fileID: 492294388}
   dashText: {fileID: 1801825030}
+  dashIsCooldown: 0
 --- !u!1 &1459269415
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,12 +9,15 @@ public class AvatarSetup : MonoBehaviourPun
     public AudioListener myAL;
     public GameObject myCharacter;
     public int characterValue;
+    private LightManager LM;
 
     // Start is called before the first frame update
     void Start()
     {
         if (this.photonView.IsMine)
         {
+            LM = GetComponent<LightManager>();
+            LM.InitLight();
             this.photonView.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
         }
         else
