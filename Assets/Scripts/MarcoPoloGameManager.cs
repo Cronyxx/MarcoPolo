@@ -15,6 +15,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     private PhotonView PV;
     private ScoreManager SM;
     private LightManager LM;
+    private CharacterInit CI;
 
     public bool gameInProgress, roundInProgress;
 
@@ -70,7 +71,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     // maybe should destroy cooroutine after preround
     private IEnumerator StartPreRound()
     {
-        LM = GameObject.Find("PlayerAvatar(Clone)").GetComponent<LightManager>();
+        LM = ((GameObject)PhotonNetwork.LocalPlayer.TagObject).GetComponent<PhotonPlayer>().myAvatar.GetComponentInChildren<LightManager>();
         LM.SetLightAll();
         
         Debug.Log("Conditions for a game are met! Starting round...");
@@ -238,31 +239,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    // Sets the player's custom settings as a hunter
-    void SetHunter() 
-    {
-        Hashtable hunterProps = new Hashtable 
-        {
-            { MarcoPoloGame.IS_ALIVE, true },
-            { MarcoPoloGame.IS_HUNTER, true } 
-        };
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hunterProps);
-        LM.SetLightHunter();
-    }
-
-    void SetHunted()
-    {
-        Hashtable huntedProps = new Hashtable
-        {
-            { MarcoPoloGame.IS_ALIVE, true },
-            { MarcoPoloGame.IS_HUNTER, false }
-        };
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(huntedProps);
-        LM.SetLightHunted();
-    }
-
     #endregion
 
     #region RPC Functions
@@ -277,16 +253,8 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     {
         this.hunterId = newHunterId;
         hunterText.text = "Hunter is " + PhotonNetwork.PlayerList[newHunterId].NickName;
-
-        if(PhotonNetwork.PlayerList[newHunterId] == PhotonNetwork.LocalPlayer) 
-        {
-            Debug.Log("I'm the hunter!");
-            SetHunter();
-
-        } else 
-        {
-            SetHunted();
-        }
+        CI = ((GameObject)PhotonNetwork.LocalPlayer.TagObject).GetComponentInChildren<CharacterInit>();
+        CI.SetCharacter(newHunterId);
     }
 
     [PunRPC]

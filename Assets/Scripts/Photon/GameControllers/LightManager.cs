@@ -11,6 +11,7 @@ public class LightManager : MonoBehaviour
     void Start()
     {
         myLight = GetComponent<Light>();
+        InitLight();
     }
 
     public void InitLight()

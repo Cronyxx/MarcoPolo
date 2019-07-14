@@ -22,6 +22,8 @@ public class EchoManager : MonoBehaviour
 
     void Update()
     {
+        if (PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] == null)
+            return;
         if (PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         {
             PV.RPC("RPC_EmitSoundWave", RpcTarget.AllViaServer);

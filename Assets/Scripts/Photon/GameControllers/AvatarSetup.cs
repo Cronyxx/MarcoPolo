@@ -9,15 +9,14 @@ public class AvatarSetup : MonoBehaviourPun
     public AudioListener myAL;
     public GameObject myCharacter;
     public int characterValue;
-    private LightManager LM;
+    public GameObject playerLight;
 
     // Start is called before the first frame update
     void Start()
     {
         if (this.photonView.IsMine)
         {
-            LM = GetComponent<LightManager>();
-            LM.InitLight();
+            Instantiate(playerLight, transform.position, transform.rotation, transform);
             this.photonView.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
         }
         else
@@ -25,6 +24,8 @@ public class AvatarSetup : MonoBehaviourPun
             Destroy(myCamera);
             Destroy(myAL);
         }
+        GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>().enabled = true;
+        GetComponent<CharacterInit>().enabled = true;
     }
 
     [PunRPC]

@@ -21,6 +21,9 @@ public class ProjectileHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] == null)
+            return;
+
         if (PV.IsMine && !(bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         {
             if (Input.GetButton("Jump") && projectileDelay <= 0.0)

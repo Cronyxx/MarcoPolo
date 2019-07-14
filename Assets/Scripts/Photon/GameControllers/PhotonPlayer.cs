@@ -21,6 +21,7 @@ public class PhotonPlayer : MonoBehaviour, IPunInstantiateMagicCallback
 
             myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar"), GameSetup.GS.spawnPoints[spawnerPicker].position,
                 GameSetup.GS.spawnPoints[spawnerPicker].rotation, 0);
+            myAvatar.transform.parent = this.gameObject.transform;
 
             myAvatar.tag = "Player";
             InitPlayer();
