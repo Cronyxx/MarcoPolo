@@ -11,6 +11,8 @@ public class EchoManager : MonoBehaviour
     private float currTime;
     private float nextEcho = MarcoPoloGame.ECHO_DELAY;
 
+    public bool isEchoOn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +20,15 @@ public class EchoManager : MonoBehaviour
         PS = GetComponent<ParticleSystem>();
         PM = GetComponent<PlayerMovement>();
         currTime = 0;
+
+        isEchoOn = true;
     }
 
     void Update()
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] == null)
             return;
-        if (PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+        if (PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] && isEchoOn)
         {
             PV.RPC("RPC_EmitSoundWave", RpcTarget.AllViaServer);
             currTime = 0;

@@ -13,10 +13,13 @@ public static class MarcoPoloGame
 
     public const string ROUNDS_PROGRESS = "roundsProgress";
 
+
     #region PLAYER SETTINGS
     public const float LIGHT_INT_NOT_PLAYING = 1.0f;
     public const float LIGHT_INT_HUNTED = 4.0f;
     public const float LIGHT_INT_HUNTER = 0.0f;
+
+    public const float PLAYER_SPEED = 10.0f;
 
     #endregion
 
@@ -26,6 +29,22 @@ public static class MarcoPoloGame
 
     public const float ECHO_DELAY = 1.0f;
     public const float DASH_CD = 2.0f;
+    public const int SKILL_COUNT = 4;
+
+    #endregion
+
+    #region SKILL SETTINGS
+    public const int SKILL_TYPE_GLOBAL = -1;
+    public const int SKILL_TYPE_HUNTER = 0;
+    public const int SKILL_TYPE_HUNTED = 1;
+    public const float SKILL_FREEZE_DUR = 2.0f;
+    public const float SKILL_SLOW_DUR = 4.0f;
+    public const float SKILL_SLOW_SPD = 5.0f;
+
+    public const float SKILL_FAST_DUR = 5.0f;
+    public const float SKILL_FAST_SPD = 15.0f;
+
+    public const float SKILL_ECHO_DUR = 10.0f;
 
     #endregion
 }
