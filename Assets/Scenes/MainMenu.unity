@@ -390,7 +390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &609722397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,6 +1080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667202950}
   - component: {fileID: 1667202949}
+  - component: {fileID: 1667202951}
   m_Layer: 0
   m_Name: LobbyController
   m_TagString: Untagged
@@ -1094,7 +1095,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667202948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe998094b4dda4d6a837bb89e86cb712, type: 3}
   m_Name: 
@@ -1116,6 +1117,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1667202951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667202948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5a54e246d8948a29c3718594484e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playButton: {fileID: 2117832070}
+  cancelButton: {fileID: 2052825070}
+  offlineButton: {fileID: 1854846032}
 --- !u!1 &1734717168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,7 +1452,8 @@ MonoBehaviour:
   delayStart: 0
   maxPlayers: 4
   MenuScene: 0
-  multiplayerScene: 1
+  LobbyScene: 1
+  multiplayerScene: 2
 --- !u!4 &1890884990
 Transform:
   m_ObjectHideFlags: 0
@@ -1957,7 +1974,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1667202949}
+      - m_Target: {fileID: 1667202951}
         m_MethodName: OnPlayButtonClicked
         m_Mode: 1
         m_Arguments:
