@@ -5,37 +5,37 @@ using UnityEngine;
 
 public class LightManager : MonoBehaviour
 {
-    private Light myLight;
+    private Light _light;
 
     // Start is called before the first frame update
     void Start()
     {
-        myLight = GetComponent<Light>();
+        _light = GetComponent<Light>();
         InitLight();
     }
 
     public void InitLight()
     {
-        myLight.transform.position = new Vector3(transform.position.x, transform.position.y, -4.0f);
-        myLight.type = LightType.Directional;
-        myLight.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;
+        _light.transform.position = new Vector3(transform.position.x, transform.position.y, -4.0f);
+        _light.type = LightType.Directional;
+        _light.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;
     }
 
     public void SetLightAll()
     {
-        myLight.type = LightType.Directional;
-        myLight.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;
+        _light.type = LightType.Directional;
+        _light.intensity = MarcoPoloGame.LIGHT_INT_NOT_PLAYING;
     }
 
     public void SetLightHunted()
     {
-        myLight.type = LightType.Spot;
-        myLight.intensity = MarcoPoloGame.LIGHT_INT_HUNTED;
-        myLight.spotAngle = 90.0f;
+        _light.type = LightType.Spot;
+        _light.intensity = MarcoPoloGame.LIGHT_INT_HUNTED;
+        _light.spotAngle = 90.0f;
     }
 
     public void SetLightHunter()
     {
-        myLight.intensity = MarcoPoloGame.LIGHT_INT_HUNTER;
+        _light.intensity = MarcoPoloGame.LIGHT_INT_HUNTER;
     }
 }

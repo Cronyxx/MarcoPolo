@@ -18,7 +18,13 @@ public class PhotonMenu : MonoBehaviourPunCallbacks
     void Start()
     {
         if (!PhotonNetwork.IsConnected)
+        {
             PhotonNetwork.ConnectUsingSettings(); //Connects to Master photon server
+        } else
+        {
+            offlineButton.SetActive(false);
+            playButton.SetActive(true);
+        }
     }
 
     public override void OnConnectedToMaster()
