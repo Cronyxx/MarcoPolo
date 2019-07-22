@@ -21,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 velocity = Vector2.zero;
 
+    public VariableJoystick myJoystick;
+
+    //joystick stuff
+    private VariableJoystick variableJoystick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,16 +40,29 @@ public class PlayerMovement : MonoBehaviour
 
         dashTimer = 0.0f;
         hasJustDashed = false;
+
+        if (PV.IsMine)
+        {
+            variableJoystick = Instantiate(myJoystick, GameObject.FindObjectOfType<Canvas>().transform);
+        }
+
     }
     
     void FixedUpdate()
     {
         if (PV.IsMine)
         {
-            BasicMovement();
-            BasicRotation();
+            //BasicMovement();
+            //BasicRotation();
+            JoystickMovement();
             Dash();
         }
+    }
+
+    private void JoystickMovement()
+    {
+        Vector2 direction = Vector2.up * variableJoystick.Vertical + Vector2.right * variableJoystick.Horizontal;
+        RB.AddForce(direction * movementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     private void BasicMovement()

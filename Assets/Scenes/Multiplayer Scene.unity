@@ -4963,8 +4963,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -210, y: -185}
-  m_SizeDelta: {x: 385, y: 100}
+  m_AnchoredPosition: {x: 326.3, y: -121}
+  m_SizeDelta: {x: 232.4, y: 202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374216694
 MonoBehaviour:
@@ -5192,6 +5192,7 @@ GameObject:
   - component: {fileID: 1568335058}
   - component: {fileID: 1568335060}
   - component: {fileID: 1568335059}
+  - component: {fileID: 1568335061}
   m_Layer: 5
   m_Name: Dash
   m_TagString: Untagged
@@ -5217,8 +5218,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -132, y: 0.00000042042}
-  m_SizeDelta: {x: 75, y: 75}
+  m_AnchoredPosition: {x: 31, y: -10}
+  m_SizeDelta: {x: 126, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1568335059
 MonoBehaviour:
@@ -5240,7 +5241,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5257,6 +5258,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568335057}
   m_CullTransparentMesh: 0
+--- !u!114 &1568335061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568335057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adceca7b4c341484c9067d0caee6d06a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769574431
 GameObject:
   m_ObjectHideFlags: 0
