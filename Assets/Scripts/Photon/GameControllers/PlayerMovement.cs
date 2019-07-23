@@ -21,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 velocity = Vector2.zero;
 
-    public VariableJoystick myJoystick;
-
     //joystick stuff
     private VariableJoystick variableJoystick;
 
@@ -43,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (PV.IsMine)
         {
-            variableJoystick = Instantiate(myJoystick, GameObject.FindObjectOfType<Canvas>().transform);
+            variableJoystick = FindObjectOfType<VariableJoystick>();
         }
 
     }
@@ -62,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     private void JoystickMovement()
     {
         Vector2 direction = Vector2.up * variableJoystick.Vertical + Vector2.right * variableJoystick.Horizontal;
-        RB.AddForce(direction * movementSpeed * Time.fixedDeltaTime, ForceMode2D.Force);
+        RB.velocity = direction * movementSpeed;
     }
 
     private void BasicMovement()

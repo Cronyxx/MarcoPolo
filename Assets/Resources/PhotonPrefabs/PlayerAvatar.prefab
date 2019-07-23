@@ -234,8 +234,6 @@ MonoBehaviour:
   isMoving: 0
   movementSpeed: 10
   rotationSpeed: 0
-  myJoystick: {fileID: 6951543135122379925, guid: 739d1c66090634f03a89b9a8bee85e0c,
-    type: 3}
 --- !u!50 &-4979242751392438256
 Rigidbody2D:
   serializedVersion: 4
