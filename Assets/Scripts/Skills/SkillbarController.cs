@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using Photon.Pun;
+using Photon.Realtime;
+
 
 public class SkillbarController : MonoBehaviour
 {
@@ -11,11 +12,18 @@ public class SkillbarController : MonoBehaviour
     public Text dashText;
     public bool dashIsCooldown = false;
     private float dashCooldown = MarcoPoloGame.DASH_CD;
+
+    public SkillsHandler SH;
+
+    public GameObject Skill1;
+
+    private int loadedSkillId;
+    private GameObject loadedSkill;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        loadedSkillId = -1;
     }
 
     // Update is called once per frame
@@ -47,4 +55,30 @@ public class SkillbarController : MonoBehaviour
             }
         }
     }
+
+    public void OnSkillPickup(GameObject skillPickup, int skillId)
+    {
+        Destroy(loadedSkill);
+        if(Skill1.transform.childCount > 1)
+        {
+            Destroy(Skill1.transform.GetChild(0).gameObject);
+        }
+
+        loadedSkillId = skillId;
+        loadedSkill = skillPickup;
+    }
+
+    public void OnSkillButtonPressed()
+    {
+        Debug.Log("Used skill, skill id: " + loadedSkillId);
+        if(loadedSkillId != -1)
+        {   
+            SH.UseSkill(loadedSkillId);
+
+            Destroy(loadedSkill);
+            loadedSkillId = -1;
+        }
+    }
+
+
 }

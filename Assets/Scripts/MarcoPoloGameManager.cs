@@ -17,7 +17,11 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     private LightManager LM;
     private CharacterInit CI;
 
+    private UnityEngine.Object[] SkillPickupsPrefabs;
+
     public bool gameInProgress, roundInProgress;
+
+    public GameObject playArea;
 
     public float roundTimer;
 
@@ -65,6 +69,12 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
+
+        // get gameobjects for skills
+        SkillPickupsPrefabs = new UnityEngine.Object[MarcoPoloGame.SKILL_COUNT];
+        SkillPickupsPrefabs = Resources.LoadAll("PhotonPrefabs/Skills/SkillPickupPrefabs");
+
+        StartCoroutine(SpawnPowerUps());
     }
 
     // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
@@ -239,8 +249,29 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    
+
     #endregion
 
+    IEnumerator SpawnPowerUps()
+    {
+        float x = playArea.transform.position.x;
+        float y = playArea.transform.position.y;
+
+        while(true)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            GameObject temp = (GameObject) Instantiate(
+                SkillPickupsPrefabs[UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length)], 
+                new Vector3(x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2), 
+                            y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2), 
+                            playArea.transform.position.z), 
+                Quaternion.identity, 
+                playArea.transform);
+        }
+        
+    }
     #region RPC Functions
     [PunRPC]
     void RPC_SetInfoText(string text)
@@ -258,17 +289,20 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_StartRoundTimer() {
+    void RPC_StartRoundTimer() 
+    {
         StartCoroutine(StartRoundTimer());
     }
 
     [PunRPC]
-    void RPC_StartPreRound() {
+    void RPC_StartPreRound() 
+    {
         StartCoroutine(StartPreRound());
     }
 
     [PunRPC]
-    void RPC_EndRound() {
+    void RPC_EndRound() 
+    {
         EndRound();
     }
     public override void OnPlayerPropertiesUpdate(Player target, Hashtable changedProps)
@@ -277,6 +311,12 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(changedProps.ContainsKey(MarcoPoloGame.IS_HUNTER)) {
             
         }
+    }
+
+    [PunRPC]
+    void RPC_SpawnPowerUp() 
+    {
+
     }
 
     #endregion

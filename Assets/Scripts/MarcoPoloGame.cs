@@ -24,6 +24,9 @@ public static class MarcoPoloGame
     #endregion
 
     #region GAME SETTINGS
+
+    public const float PLAY_AREA_WIDTH = 20.0f;
+    public const float PLAY_AREA_HEIGHT = 20.0f;
     public const float PROJECTILE_PULSE_DUR = 3.0f;
     public const float PROJECTILE_SPD = 5.0f;
 

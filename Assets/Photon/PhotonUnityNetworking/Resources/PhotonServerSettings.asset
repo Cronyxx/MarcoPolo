@@ -51,5 +51,6 @@ MonoBehaviour:
   - RPC_Echolocate
   - UsedSkill
   - RPC_UsedSkill
+  - RPC_SpawnPowerUp
   DisableAutoOpenWizard: 1
   ShowSettings: 1

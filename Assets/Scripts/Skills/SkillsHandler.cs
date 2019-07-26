@@ -11,7 +11,7 @@ public class SkillsHandler : MonoBehaviour
     Skill[] skills;
     private PlayerMovement PM;
     private MonoBehaviour MB;
-    private PhotonView PV;
+    public PhotonView PV;
 
     public GameObject statusBar;
     void Start()
@@ -20,6 +20,9 @@ public class SkillsHandler : MonoBehaviour
         PM = GetComponent<PlayerMovement>();
         PV = GetComponent<PhotonView>();
         MB = GameObject.FindObjectOfType<MonoBehaviour>();
+
+        SkillbarController SB = GameObject.FindObjectOfType<SkillbarController>();
+        SB.SH = this;
 
         statusBar = GameObject.Find("Canvas/Status Bar");
 
@@ -31,59 +34,29 @@ public class SkillsHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            // freeze
-            PV.RPC("RPC_UsedSkill", RpcTarget.AllViaServer, 0, UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length), MarcoPoloGame.SKILL_TYPE_HUNTER);
-        }
+        
+    }
 
-        if (Input.GetKeyDown(KeyCode.C))
+    public void UseSkill(int skillId)
+    {
+        if(skillId == 0 || skillId == 1)
         {
-            // slow
-            PV.RPC("RPC_UsedSkill", RpcTarget.AllViaServer, 1, UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length), MarcoPoloGame.SKILL_TYPE_HUNTER);
-        }
-
-        if (Input.GetKeyDown(KeyCode.V))
+            // freeze or slow
+            PV.RPC("RPC_UsedSkill", RpcTarget.Others, skillId, -1);
+        } 
+        else if(skillId == 2 || skillId == 3)
         {
-            // fast
-            PV.RPC("RPC_UsedSkill", RpcTarget.AllViaServer, 2, UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length), MarcoPoloGame.SKILL_TYPE_HUNTER);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            // fast
-            PV.RPC("RPC_UsedSkill", RpcTarget.AllViaServer, 3, UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length), MarcoPoloGame.SKILL_TYPE_HUNTER);
+            RPC_UsedSkill(skillId, -1);
         }
     }
 
     [PunRPC]
-    void RPC_UsedSkill(int skillId, int playerId, int skillType)
+    public void RPC_UsedSkill(int skillId, int playerId)
     {
         Debug.Log("skillId: " + skillId + " , playerSelected: " + playerId);
         Debug.Log(skills[skillId].skillName + " affecting me!");
-
-        // DEBUG here must change to false
         
         bool affectingMe = true;
-
-        // if(skillType == MarcoPoloGame.SKILL_TYPE_HUNTED)
-        // {
-        //     if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER]) 
-        //     {
-        //         affectingMe = true;
-        //     }
-        // } 
-        // else if(skillType == MarcoPoloGame.SKILL_TYPE_HUNTER) 
-        // {
-        //     if((bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER]) 
-        //     {
-        //         affectingMe = true;
-        //     }
-        // } 
-        // else if(skillType == MarcoPoloGame.SKILL_TYPE_GLOBAL) 
-        // {
-            
-        // }
 
         if(affectingMe)
         {
