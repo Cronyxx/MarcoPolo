@@ -32,7 +32,7 @@ public static class MarcoPoloGame
 
     public const float ECHO_DELAY = 1.0f;
     public const float DASH_CD = 2.0f;
-    public const int SKILL_COUNT = 4;
+    public const int SKILL_COUNT = 5;
 
     #endregion
 

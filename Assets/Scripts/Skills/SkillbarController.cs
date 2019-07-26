@@ -29,10 +29,10 @@ public class SkillbarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(dashIsCooldown)
-        {
-            DashHandler();
-        }
+        // if(dashIsCooldown)
+        // {
+        //     DashHandler();
+        // }
     }
 
     public void DashHandler()

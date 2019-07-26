@@ -30,6 +30,7 @@ public class SkillsHandler : MonoBehaviour
         skills[1] = new SkillSlow();
         skills[2] = new SkillFast();
         skills[3] = new SkillEcho();
+        skills[4] = new SkillDash();
     }
 
     void Update()
@@ -41,11 +42,12 @@ public class SkillsHandler : MonoBehaviour
     {
         if(skillId == 0 || skillId == 1)
         {
-            // freeze or slow
+            // on others
             PV.RPC("RPC_UsedSkill", RpcTarget.Others, skillId, -1);
         } 
-        else if(skillId == 2 || skillId == 3)
+        else
         {
+            // on ownself
             RPC_UsedSkill(skillId, -1);
         }
     }
