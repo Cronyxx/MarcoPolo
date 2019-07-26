@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     //joystick stuff
     private VariableJoystick variableJoystick;
+    private JoyButton joyButton;
+    private Transform charSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
         if (PV.IsMine)
         {
             variableJoystick = FindObjectOfType<VariableJoystick>();
+            joyButton = FindObjectOfType<JoyButton>();
+            charSprite = transform.GetChild(1);
         }
 
     }
@@ -61,6 +66,15 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 direction = Vector2.up * variableJoystick.Vertical + Vector2.right * variableJoystick.Horizontal;
         RB.velocity = direction * movementSpeed;
+        if (direction.x > 0 || direction.x < 0 || direction.y < 0 || direction.y > 0)
+        {
+            charSprite.transform.rotation = Quaternion.Euler(0, 0, (float)((Math.Atan2(direction.y, direction.x) * 180) / Math.PI));
+            isMoving = true;
+        } else
+        {
+            isMoving = false;
+        }
+
     }
 
     private void BasicMovement()
