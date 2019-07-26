@@ -22,7 +22,7 @@ public class GameSetup : MonoBehaviour
 
     public void DisconnectPlayer()
     {
-        Destroy(PhotonRoom.room.gameObject);
+        //Destroy(PhotonRoom.room.gameObject);
         StartCoroutine(DisconnectAndLoad());
     }
 
