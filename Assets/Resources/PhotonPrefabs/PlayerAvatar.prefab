@@ -234,6 +234,8 @@ MonoBehaviour:
   isMoving: 0
   movementSpeed: 10
   rotationSpeed: 0
+  isDashing: 0
+  velocity: {x: 0, y: 0}
 --- !u!50 &-4979242751392438256
 Rigidbody2D:
   serializedVersion: 4

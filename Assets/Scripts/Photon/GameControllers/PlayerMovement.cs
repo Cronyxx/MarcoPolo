@@ -17,9 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D[] m_Contacts = new RaycastHit2D[100];
 
     private float dashTimer;
-    bool hasJustDashed;
+    public bool isDashing;
 
-    Vector2 velocity = Vector2.zero;
+    public Vector2 velocity = Vector2.zero;
 
     //joystick stuff
     private VariableJoystick variableJoystick;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
 
         dashTimer = 0.0f;
-        hasJustDashed = false;
+        isDashing = false;
 
         if (PV.IsMine)
         {
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            //BasicMovement();
+            BasicMovement();
             //BasicRotation();
             JoystickMovement();
             Dash();
@@ -128,27 +128,15 @@ public class PlayerMovement : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
         transform.Rotate(new Vector3(0, mouseX, 0));
     }
-
     void Dash()
     {
         
         // if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         // {
-            if (Input.GetKeyDown(KeyCode.Z) && isMoving && !hasJustDashed)
+            if (isDashing && isMoving)
             {
                 RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
-                hasJustDashed = true;
-                SC.dashIsCooldown = true;
-            }
-
-            if(hasJustDashed)
-            {
-                dashTimer += Time.deltaTime;
-                if(dashTimer > MarcoPoloGame.DASH_CD)
-                {
-                    hasJustDashed = false;
-                    dashTimer = 0.0f;
-                }
+                isDashing = false;
             }
             
         // }
