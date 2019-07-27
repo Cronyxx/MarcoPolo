@@ -905,7 +905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySelectedCharacter: 0
   allCharacters:
-  - {fileID: 53509682742744918, guid: b7b7710b840a944088cc2eff6aa28e1f, type: 3}
+  - {fileID: 6653611362027880050, guid: 3337378a6679f429f89ec7525489a938, type: 3}
   - {fileID: 501853673990336826, guid: 0026ec7a841314d47987a7987874dd4a, type: 3}
 --- !u!4 &949994341
 Transform:
