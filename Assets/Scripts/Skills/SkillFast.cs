@@ -51,7 +51,7 @@ public class SkillFast : Skill
         PM.movementSpeed = MarcoPoloGame.SKILL_FAST_SPD;
         isFast = true;
 
-        SR.color = Color.green;
+        // SR.color = Color.green;
 
         AddStatusEffect(MarcoPoloGame.SKILL_FAST_DUR);
     }
@@ -62,7 +62,7 @@ public class SkillFast : Skill
         PM.movementSpeed = MarcoPoloGame.PLAYER_SPEED;
         isFast = false;
 
-        SR.color = Color.white;
+        // SR.color = Color.white;
     }
 
     public override void AddStatusEffect(float timeout)

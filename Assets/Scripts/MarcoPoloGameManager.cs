@@ -39,6 +39,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             InitRoom();
             masterClientText.text = "MASTER";
+            hunterId = -1;
         }
         
     }
@@ -243,7 +244,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     void SelectHunter() 
     {
         if(PhotonNetwork.IsMasterClient) {
-            hunterId = UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length);
+            hunterId += 1;
             
             PV.RPC("RPC_SetHunterId", RpcTarget.All, hunterId);
         }
@@ -260,15 +261,11 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
         while(true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(MarcoPoloGame.SKILL_SPAWN_INTERVAL);
+            PV.RPC("RPC_SpawnPowerUp", RpcTarget.All, x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2), 
+                y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2));
 
-            GameObject temp = (GameObject) Instantiate(
-                SkillPickupsPrefabs[UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length)], 
-                new Vector3(x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2), 
-                            y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2), 
-                            playArea.transform.position.z), 
-                Quaternion.identity, 
-                playArea.transform);
+            
         }
         
     }
@@ -314,9 +311,18 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_SpawnPowerUp() 
+    void RPC_SpawnPowerUp(float x, float y) 
     {
-
+        if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+        {
+            GameObject temp = (GameObject) Instantiate(
+                SkillPickupsPrefabs[UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length)], 
+                new Vector3(x, 
+                            y, 
+                            playArea.transform.position.z), 
+                Quaternion.identity, 
+                playArea.transform);
+        }
     }
 
     #endregion

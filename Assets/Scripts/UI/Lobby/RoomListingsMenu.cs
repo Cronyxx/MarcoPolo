@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,8 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
 
     private List<RoomListing> _listings = new List<RoomListing>();
     private RoomsCanvases _roomsCanvases;
+
+    public Text roomNameTitle;
 
     public void FirstInitialise(RoomsCanvases canvases)
     {
@@ -25,6 +28,8 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
         _content.DestroyChildren();
         _listings.Clear();
         PhotonNetwork.LeaveLobby();
+
+        roomNameTitle.text = PhotonNetwork.CurrentRoom.Name;
     }
 
     public override void OnConnectedToMaster()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class CharacterInit: MonoBehaviour
+public class CharacterInit : MonoBehaviour
 {
     public GameObject HuntedPulse;
     public GameObject HunterPulse;

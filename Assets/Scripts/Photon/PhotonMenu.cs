@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhotonMenu : MonoBehaviourPunCallbacks
 {
     public static PhotonMenu menu;
 
     public GameObject playButton, cancelButton, offlineButton;
+
+    public InputField NickNameInput;
 
     private void Awake()
     {
@@ -42,6 +45,8 @@ public class PhotonMenu : MonoBehaviourPunCallbacks
         cancelButton.SetActive(true);
         PhotonNetwork.JoinLobby();
         Debug.Log("Joining lobby.");
+
+        PhotonNetwork.NickName = NickNameInput.text;
     }
 
     public void OnCancelButtonClicked()
@@ -50,6 +55,16 @@ public class PhotonMenu : MonoBehaviourPunCallbacks
         cancelButton.SetActive(false);
         playButton.SetActive(true);
         PhotonNetwork.LeaveLobby();
+    }
+
+    public void OnInstructionsButtonClicked()
+    {
+
+    }
+
+    public void OnCreditsButtonClicked()
+    {
+        
     }
 
     public override void OnJoinedLobby()

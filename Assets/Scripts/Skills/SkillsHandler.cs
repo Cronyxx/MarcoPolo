@@ -60,7 +60,7 @@ public class SkillsHandler : MonoBehaviour
         
         bool affectingMe = true;
 
-        if(affectingMe)
+        if(affectingMe && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
         {
             skills[skillId].Init(this.gameObject, PM, MB, statusBar);
         }

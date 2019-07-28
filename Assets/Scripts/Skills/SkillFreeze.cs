@@ -50,7 +50,7 @@ public class SkillFreeze : Skill
         PM.movementSpeed = 0;
         isFrozen = true;
 
-        SR.color = Color.blue;
+        // SR.color = Color.blue;
 
         AddStatusEffect(MarcoPoloGame.SKILL_FREEZE_DUR);
     }
@@ -61,7 +61,7 @@ public class SkillFreeze : Skill
         PM.movementSpeed = MarcoPoloGame.PLAYER_SPEED;
         isFrozen = false;
 
-        SR.color = Color.white;
+        // SR.color = Color.white;
     }
 
     public override void AddStatusEffect(float timeout)

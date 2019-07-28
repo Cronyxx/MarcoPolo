@@ -51,7 +51,7 @@ public class SkillEcho : Skill
         Debug.Log("Echo off!");
         EM.isEchoOn = false;
 
-        SR.color = new Color(0.95f, 0, 1.0f, 1.0f);
+        // SR.color = new Color(0.95f, 0, 1.0f, 1.0f);
 
         AddStatusEffect(MarcoPoloGame.SKILL_ECHO_DUR);
     }
@@ -61,7 +61,7 @@ public class SkillEcho : Skill
         Debug.Log("Echo back on!");
         EM.isEchoOn = true;
 
-        SR.color = Color.white;
+        // SR.color = Color.white;
     }
 
     public override void AddStatusEffect(float timeout)

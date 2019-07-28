@@ -38,6 +38,8 @@ public class PlayerInfo : MonoBehaviour
             mySelectedCharacter = 0;
             PlayerPrefs.SetInt("MyCharacter", mySelectedCharacter);
         }
+
+        PhotonNetwork.NickName = "TheLegend27";
     }
 
     public void SetNickName(string name) 
