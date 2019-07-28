@@ -152,6 +152,11 @@ public class PlayerMovement : MonoBehaviour
                 RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
                 isDashing = false;
             }
+
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
+            }
             
         // }
     }

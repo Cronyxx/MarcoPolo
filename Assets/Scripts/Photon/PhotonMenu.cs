@@ -52,6 +52,16 @@ public class PhotonMenu : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveLobby();
     }
 
+    public void OnInstructionsButtonClicked()
+    {
+
+    }
+
+    public void OnCreditsButtonClicked()
+    {
+        
+    }
+
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
