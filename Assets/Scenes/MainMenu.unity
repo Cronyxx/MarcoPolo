@@ -2606,8 +2606,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySelectedCharacter: 0
   allCharacters:
-  - {fileID: 6653611362027880050, guid: 3337378a6679f429f89ec7525489a938, type: 3}
-  - {fileID: 501853673990336826, guid: 0026ec7a841314d47987a7987874dd4a, type: 3}
+  - Survivor
+  - BrownMan
 --- !u!4 &949994341
 Transform:
   m_ObjectHideFlags: 0
@@ -2767,7 +2767,7 @@ GameObject:
   - component: {fileID: 1046379574}
   - component: {fileID: 1046379573}
   m_Layer: 5
-  m_Name: SquareCharacterBtn
+  m_Name: BrownManBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2868,7 +2868,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 784cf1531f4b348f5bc03097cbb57859, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c6846acf5404434a844ffc14fd19f83, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4772,7 +4772,7 @@ GameObject:
   - component: {fileID: 1734717171}
   - component: {fileID: 1734717170}
   m_Layer: 5
-  m_Name: CircleCharacterBtn
+  m_Name: SurvivorBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4873,7 +4873,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0537358d2cc1c4b6a99f516a118b842a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3db86d670406f42c18db95fb4a185a9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
