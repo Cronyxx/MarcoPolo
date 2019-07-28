@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Photon.Pun;
 using UnityEngine;
 
@@ -11,13 +12,15 @@ public class AvatarSetup : MonoBehaviourPun
     public int characterValue;
     public GameObject playerLight;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         if (this.photonView.IsMine)
         {
             Instantiate(playerLight, transform.position, transform.rotation, transform);
-            this.photonView.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
+            AddCharacter(PlayerInfo.PI.mySelectedCharacter);
         }
         else
         {
@@ -28,14 +31,20 @@ public class AvatarSetup : MonoBehaviourPun
         GetComponent<CharacterInit>().enabled = true;
     }
 
-    [PunRPC]
-    void RPC_AddCharacter(int whichCharacter)
+    void AddCharacter(int whichCharacter)
     {
         characterValue = whichCharacter;
-        myCharacter = Instantiate(PlayerInfo.PI.allCharacters[whichCharacter], transform.position,
-            transform.rotation, transform.GetChild(1)); 
+        myCharacter = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Characters", PlayerInfo.PI.allCharacters[whichCharacter]), transform.position,
+            transform.rotation);
+        this.photonView.RPC("RPC_SetParent", RpcTarget.AllBuffered, myCharacter.GetPhotonView().ViewID);
         myCharacter.tag = "Player";
 
         myCharacter.GetComponent<Renderer>().material.shader = Resources.Load<Material>("Materials/Sprite_Material").shader;
+    }
+
+    [PunRPC]
+    void RPC_SetParent(int ID)
+    {
+        PhotonNetwork.GetPhotonView(ID).transform.SetParent(transform.GetChild(1));
     }
 }

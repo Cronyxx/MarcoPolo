@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            BasicMovement();
+            //BasicMovement();
             //BasicRotation();
             JoystickMovement();
             Dash();

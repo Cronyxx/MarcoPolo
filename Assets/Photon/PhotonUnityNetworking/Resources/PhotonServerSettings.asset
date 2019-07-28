@@ -52,5 +52,6 @@ MonoBehaviour:
   - UsedSkill
   - RPC_UsedSkill
   - RPC_SpawnPowerUp
+  - RPC_SetParent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
