@@ -11,7 +11,7 @@ public class SkillbarController : MonoBehaviour
     public Image dashCooldownImage;
     public Text dashText;
     public bool dashIsCooldown = false;
-    private float dashCooldown = MarcoPoloGame.DASH_CD;
+    private float dashCooldown = 2.0f;
 
     public SkillsHandler SH;
 
@@ -19,6 +19,8 @@ public class SkillbarController : MonoBehaviour
 
     private int loadedSkillId;
     private GameObject loadedSkill;
+
+    public GameObject SkillButton, HunterButton;
     
     // Start is called before the first frame update
     void Start()
@@ -29,10 +31,19 @@ public class SkillbarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(dashIsCooldown)
-        // {
-        //     DashHandler();
-        // }
+        if(PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] != null) 
+        {
+            if((bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+            {
+                HunterButton.SetActive(true);
+                SkillButton.SetActive(false);
+            } 
+            else 
+            {
+                HunterButton.SetActive(false);
+                SkillButton.SetActive(true);
+            }
+        }
     }
 
     public void DashHandler()

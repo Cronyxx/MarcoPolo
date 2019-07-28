@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aca3247d6c1045e18570b66ce41401b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nickNamePlaceHolder: {fileID: 0}
+  NickNameInput: {fileID: 2107042239}
 --- !u!4 &177676597
 Transform:
   m_ObjectHideFlags: 0
@@ -4719,6 +4719,7 @@ MonoBehaviour:
   playButton: {fileID: 2117832070}
   cancelButton: {fileID: 2052825070}
   offlineButton: {fileID: 1854846032}
+  NickNameInput: {fileID: 2107042239}
 --- !u!1 &1679194587
 GameObject:
   m_ObjectHideFlags: 0

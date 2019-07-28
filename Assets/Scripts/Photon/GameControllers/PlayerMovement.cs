@@ -144,21 +144,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void Dash()
     {
-        
-        // if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
-        // {
             if (isDashing && isMoving)
             {
                 RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
                 isDashing = false;
             }
-
-            if(Input.GetKeyDown(KeyCode.Z))
-            {
-                RB.AddForce(new Vector2(velocity.x * 500f, velocity.y * 500f), ForceMode2D.Impulse);
-            }
-            
-        // }
     }
     private void OnCollisionStay2D (Collision2D collision)
     {

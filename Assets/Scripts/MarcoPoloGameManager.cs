@@ -39,6 +39,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             InitRoom();
             masterClientText.text = "MASTER";
+            hunterId = -1;
         }
         
     }
@@ -243,7 +244,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     void SelectHunter() 
     {
         if(PhotonNetwork.IsMasterClient) {
-            hunterId = UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length);
+            hunterId += 1;
             
             PV.RPC("RPC_SetHunterId", RpcTarget.All, hunterId);
         }

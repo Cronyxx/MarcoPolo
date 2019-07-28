@@ -6,12 +6,12 @@ using Photon.Pun;
 
 public class MenuController : MonoBehaviour
 {
-    public Text nickNamePlaceHolder;
+    public InputField NickNameInput;
     void Start()
     {
-        if(PhotonNetwork.LocalPlayer.NickName != null)
+        if(PhotonNetwork.NickName != "")
         {
-
+            NickNameInput.text = PhotonNetwork.NickName;
         }
     }
     

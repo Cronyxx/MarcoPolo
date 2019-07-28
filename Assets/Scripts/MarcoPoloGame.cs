@@ -3,7 +3,7 @@ using UnityEngine;
 public static class MarcoPoloGame
 {
     public const int ROUNDS_PER_GAME = 4;
-    public const int PLAYERS_IN_MATCH = 2;
+    public const int PLAYERS_IN_MATCH = 1;
     public const int ROUND_TIME = 60;
 
     public const int PRE_ROUND_TIME = 10;
@@ -31,7 +31,7 @@ public static class MarcoPoloGame
     public const float PROJECTILE_SPD = 5.0f;
 
     public const float ECHO_DELAY = 1.0f;
-    public const float DASH_CD = 2.0f;
+    public const float HUNTER_REVEAL_CD = 5.0f;
     public const int SKILL_COUNT = 5;
 
     #endregion
