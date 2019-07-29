@@ -25,21 +25,20 @@ public class CharacterInit : MonoBehaviour
     //separate the hunter and hunted
     public void SetCharacter(int newHunterId)
     {
+        InitHunted();
         if (PhotonNetwork.PlayerList[newHunterId] == PhotonNetwork.LocalPlayer)
         {
             InitHunter();
-        } 
-        else
-        {
-            InitHunted();
-        } 
+        }
+        
+        Debug.Log("Initialised HUNTER: " + PhotonNetwork.LocalPlayer.NickName + ", " + PhotonNetwork.LocalPlayer.CustomProperties);
     }
 
     private void InitHunter()
     {
         Hashtable charProps = new Hashtable
             {
-                { MarcoPoloGame.IS_ALIVE, true },
+                { MarcoPoloGame.IS_ALIVE, false },
                 { MarcoPoloGame.IS_HUNTER, true }
             };
         LM.SetLightHunter();
@@ -47,7 +46,7 @@ public class CharacterInit : MonoBehaviour
         PhotonNetwork.LocalPlayer.SetCustomProperties(charProps);
     }
 
-    private void InitHunted()
+    public void InitHunted()
     {
         Hashtable charProps = new Hashtable
             {

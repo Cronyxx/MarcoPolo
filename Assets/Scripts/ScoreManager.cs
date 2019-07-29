@@ -56,17 +56,17 @@ public class ScoreManager : MonoBehaviour
             if(hunterWin)
             {
                 Debug.Log("The hunter wins! Adding 200 points.");
-                AddScore(hunter, 200);
+                AddScore(hunter, 100);
             }
             else 
             {
-                Debug.Log("Hunter loses! Players alive receive 100 points each.");
+                Debug.Log("Hunter loses! Players alive receive 300 points each.");
                 foreach(Player player in PhotonNetwork.PlayerList)
                 {
                     if(!(bool) player.CustomProperties[MarcoPoloGame.IS_HUNTER]
                         && (bool) player.CustomProperties[MarcoPoloGame.IS_ALIVE])
                     {
-                        AddScore(player, 100);
+                        AddScore(player, 300);
                     }
                 }
             }

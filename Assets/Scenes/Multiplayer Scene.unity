@@ -158,6 +158,10 @@ MonoBehaviour:
   gameInProgress: 0
   roundInProgress: 0
   playArea: {fileID: 1249520101}
+  mapArray:
+  - {fileID: 192692243}
+  - {fileID: 33923107}
+  - {fileID: 301027151}
   roundTimer: 0
 --- !u!114 &8178249
 MonoBehaviour:
@@ -8081,7 +8085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &301027152
 Transform:
   m_ObjectHideFlags: 0
@@ -8113,47 +8117,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 301027158}
-    m_ColliderPaths:
-    - - X: -107586960
-        Y: 109999960
-      - X: -110003016
-        Y: 109999960
-      - X: -110003016
-        Y: -60044636
-      - X: -107586960
-        Y: -60044636
-  - m_Collider: {fileID: 301027157}
-    m_ColliderPaths:
-    - - X: 110067824
-        Y: 109957768
-      - X: -109991664
-        Y: 109957768
-      - X: -109991664
-        Y: 107685016
-      - X: 110067824
-        Y: 107685016
-  - m_Collider: {fileID: 301027156}
-    m_ColliderPaths:
-    - - X: 109932464
-        Y: 110079384
-      - X: 107354488
-        Y: 110079384
-      - X: 107354488
-        Y: -59943980
-      - X: 109932464
-        Y: -59943980
-  - m_Collider: {fileID: 301027155}
-    m_ColliderPaths:
-    - - X: 109956072
-        Y: -57203884
-      - X: -110406760
-        Y: -57203884
-      - X: -110406760
-        Y: -59979496
-      - X: 109956072
-        Y: -59979496
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: -10.758697, y: -5.9979496}
@@ -12864,6 +12828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1249520103}
   - component: {fileID: 1249520102}
+  - component: {fileID: 1249520104}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -12900,6 +12865,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249520104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249520101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc5eb115cbdc32941a2103a8cd425446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapArray:
+  - {fileID: 192692243}
+  - {fileID: 33923107}
+  - {fileID: 301027151}
 --- !u!1 &1374216692
 GameObject:
   m_ObjectHideFlags: 0
