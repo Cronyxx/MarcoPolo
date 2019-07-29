@@ -2606,8 +2606,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySelectedCharacter: 0
   allCharacters:
-  - Survivor
-  - BrownMan
+  - {fileID: 6653611362027880050, guid: 3337378a6679f429f89ec7525489a938, type: 3}
+  - {fileID: 4847395648942943396, guid: affff1bae9a36426cb60136d354f34a6, type: 3}
 --- !u!4 &949994341
 Transform:
   m_ObjectHideFlags: 0
@@ -4873,7 +4873,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3db86d670406f42c18db95fb4a185a9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f764de0916534e6d8b0542f23017dfa, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
