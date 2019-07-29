@@ -42,7 +42,5 @@ public class LightManager : MonoBehaviour
     public void SetLightHunter()
     {
         _light.intensity = MarcoPoloGame.LIGHT_INT_HUNTER;
-        
-        PlayerMovement[] PMArray= GameObject.FindObjectsOfType<PlayerMovement>();
     }
 }

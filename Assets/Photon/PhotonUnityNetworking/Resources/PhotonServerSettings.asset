@@ -54,5 +54,6 @@ MonoBehaviour:
   - RPC_SpawnPowerUp
   - RPC_SetParent
   - RPC_SpawnPowerUps
+  - RPC_CreatePulse
   DisableAutoOpenWizard: 1
   ShowSettings: 1

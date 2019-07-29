@@ -247,7 +247,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) {
             hunterId += 1;
             
-            if(hunterId >= PhotonNetwork.PlayerList.Length - 1)
+            if(hunterId >= PhotonNetwork.PlayerList.Length)
             {
                 hunterId = 0;
             }
@@ -270,7 +270,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
         while(true)
         {
-            skillId = UnityEngine.Random.Range(0, MarcoPoloGame.SKILL_COUNT);
+            skillId = UnityEngine.Random.Range(1, MarcoPoloGame.SKILL_COUNT);
             spawnX = x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2);
             spawnY = y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2);
             yield return new WaitForSeconds(MarcoPoloGame.SKILL_SPAWN_INTERVAL);

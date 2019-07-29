@@ -11,6 +11,8 @@ public class EchoManager : MonoBehaviour
     private float currTime;
     private float nextEcho = MarcoPoloGame.ECHO_DELAY;
 
+    public GameObject PulsePrefab;
+
     public bool isEchoOn;
 
     // Start is called before the first frame update
@@ -28,19 +30,19 @@ public class EchoManager : MonoBehaviour
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] == null)
             return;
-        if (PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] && isEchoOn)
+        if (PV.IsMine && PM.isMoving && currTime > nextEcho && !(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] && isEchoOn)
         {
-            PV.RPC("RPC_EmitSoundWave", RpcTarget.AllViaServer);
+            PV.RPC("RPC_CreatePulse", RpcTarget.AllViaServer, transform.position.x, transform.position.y);
             currTime = 0;
         }
         currTime += Time.deltaTime;
     }
 
     [PunRPC]
-    private void RPC_EmitSoundWave()
+    private void RPC_CreatePulse(float x, float y)
     {
-        PS.Emit(300);
-        // might want to add some sound effects
+        Instantiate(PulsePrefab, new Vector3(x, y, transform.position.z), Quaternion.identity, transform);
+        
     }
 
 }

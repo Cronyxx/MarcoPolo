@@ -82,6 +82,7 @@ public class SkillbarController : MonoBehaviour
     public void OnSkillButtonPressed()
     {
         Debug.Log("Used skill, skill id: " + loadedSkillId);
+        Debug.Log("Player props: " + PhotonNetwork.LocalPlayer.CustomProperties);
         if(loadedSkillId != -1)
         {   
             SH.UseSkill(loadedSkillId);
