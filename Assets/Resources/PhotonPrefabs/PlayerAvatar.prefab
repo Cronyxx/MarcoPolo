@@ -174,13 +174,13 @@ GameObject:
   - component: {fileID: 7838581626833195611}
   - component: {fileID: 489189193414852679}
   - component: {fileID: 5725954276027732265}
-  - component: {fileID: 2047485506}
-  - component: {fileID: 2047485507}
   - component: {fileID: 428092079376099838}
   - component: {fileID: -4287828644318430393}
   - component: {fileID: -9071332828433970339}
   - component: {fileID: 4507940554480310122}
   - component: {fileID: -3394344694649139816}
+  - component: {fileID: -4604059506560304566}
+  - component: {fileID: -688083625305420983}
   m_Layer: 10
   m_Name: PlayerAvatar
   m_TagString: Player
@@ -254,7 +254,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2548141394152980102
@@ -362,7 +362,7 @@ MonoBehaviour:
   myAL: {fileID: 7829060367309495847}
   myCharacter: {fileID: 0}
   characterValue: 0
-  playerLight: {fileID: 3911647945477218979, guid: c43627a5b53a2438092a676d4974fbae,
+  playerLightPrefab: {fileID: 3911647945477218979, guid: c43627a5b53a2438092a676d4974fbae,
     type: 3}
   animator: {fileID: 0}
 --- !u!58 &5725954276027732265
@@ -381,7 +381,73 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!199 &2047485506
+--- !u!114 &428092079376099838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ac72be1246e654c89a60710c3b2cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 7119387932834807831, guid: 95e7284483d417e418409ebb4c34f41a,
+    type: 3}
+--- !u!114 &-4287828644318430393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1197fac808c49a5b71f82f451fc73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PulsePrefab: {fileID: 5313758111685210850, guid: f323420d025e08d41b4b0d5b30851fb7,
+    type: 3}
+  isEchoOn: 0
+--- !u!114 &-9071332828433970339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc6a94996c8a496481269197266517c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown: 5
+--- !u!222 &4507940554480310122
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_CullTransparentMesh: 0
+--- !u!114 &-3394344694649139816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418408388921461828}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf85a0794d18f4bae85a4c34b4bdda18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HuntedPulse: {fileID: 5868026779489845243, guid: 79f72204c188f3941a7032000b0dabb6,
+    type: 3}
+  HunterPulse: {fileID: 1875200671504827789, guid: ab91b6ab734124560bff8513c492c552,
+    type: 3}
+--- !u!199 &-4604059506560304566
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -443,7 +509,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!198 &2047485507
+--- !u!198 &-688083625305420983
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5101,67 +5167,3 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &428092079376099838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418408388921461828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8ac72be1246e654c89a60710c3b2cd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab: {fileID: 7119387932834807831, guid: 95e7284483d417e418409ebb4c34f41a,
-    type: 3}
---- !u!114 &-4287828644318430393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418408388921461828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e1197fac808c49a5b71f82f451fc73d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEchoOn: 0
---- !u!114 &-9071332828433970339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418408388921461828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc6a94996c8a496481269197266517c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coolDown: 5
---- !u!222 &4507940554480310122
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418408388921461828}
-  m_CullTransparentMesh: 0
---- !u!114 &-3394344694649139816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6418408388921461828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf85a0794d18f4bae85a4c34b4bdda18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HuntedPulse: {fileID: 5868026779489845243, guid: 79f72204c188f3941a7032000b0dabb6,
-    type: 3}
-  HunterPulse: {fileID: 1875200671504827789, guid: ab91b6ab734124560bff8513c492c552,
-    type: 3}
