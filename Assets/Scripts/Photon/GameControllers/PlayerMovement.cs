@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
     private JoyButton joyButton;
     private Transform charSprite;
 
+    private Vector2 currPosition;
+    private Vector2 lastPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
             joyButton = FindObjectOfType<JoyButton>();
             charSprite = transform.GetChild(1);
         }
+        currPosition = new Vector2(0, 0);
+        lastPosition = new Vector2(0, 0);
 
     }
     
@@ -59,6 +64,17 @@ public class PlayerMovement : MonoBehaviour
             //BasicRotation();
             JoystickMovement();
             Dash();
+        } else
+        {
+            currPosition = transform.position;
+            if (currPosition.Equals(lastPosition))
+            {
+                isMoving = false;
+            } else
+            {
+                isMoving = true;
+            }
+            lastPosition = currPosition;
         }
     }
 

@@ -9,7 +9,7 @@ public class PlayerInfo : MonoBehaviour
 
     //Used for character selection
     public int mySelectedCharacter;
-    public string[] allCharacters;
+    public GameObject[] allCharacters;
 
     private void OnEnable()
     {
