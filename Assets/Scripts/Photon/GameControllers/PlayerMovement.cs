@@ -51,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
             joyButton = FindObjectOfType<JoyButton>();
             charSprite = transform.GetChild(1);
         }
-        currPosition = new Vector2(0, 0);
-        lastPosition = new Vector2(0, 0);
+        currPosition = Vector2.zero;
+        lastPosition = Vector2.zero;
 
     }
     
