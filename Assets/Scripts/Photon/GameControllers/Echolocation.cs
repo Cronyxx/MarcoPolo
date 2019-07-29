@@ -6,14 +6,17 @@ using UnityEngine;
 public class Echolocation : MonoBehaviour
 {
     public float coolDown;
+    private AudioSource AD;
     private float currTime;
     private ParticleSystem PS;
     private PhotonView PV;
+    
     // Start is called before the first frame update
     void Start()
     {
         PS = GetComponent<ParticleSystem>();
         PV = GetComponent<PhotonView>();
+        AD = GameObject.Find("EcholocationSound").GetComponent<AudioSource>();
         currTime = 0;
     }
 
@@ -37,5 +40,6 @@ public class Echolocation : MonoBehaviour
     private void RPC_Echolocate()
     {
         PS.Emit(300);
+        AD.Play();
     }
 }

@@ -12,6 +12,7 @@ public class EchoManager : MonoBehaviour
     private float nextEcho = MarcoPoloGame.ECHO_DELAY;
 
     public GameObject PulsePrefab;
+    private AudioSource AD;
 
     public bool isEchoOn;
 
@@ -21,6 +22,7 @@ public class EchoManager : MonoBehaviour
         PV = GetComponent<PhotonView>();
         PS = GetComponent<ParticleSystem>();
         PM = GetComponent<PlayerMovement>();
+        AD = GameObject.Find("HuntedSound").GetComponent<AudioSource>();
         currTime = 0;
 
         isEchoOn = true;
@@ -42,7 +44,7 @@ public class EchoManager : MonoBehaviour
     private void RPC_CreatePulse(float x, float y)
     {
         Instantiate(PulsePrefab, new Vector3(x, y, transform.position.z), Quaternion.identity, transform);
-        
+        AD.Play();      
     }
 
 }
