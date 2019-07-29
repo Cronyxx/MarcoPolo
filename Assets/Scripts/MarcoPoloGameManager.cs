@@ -98,7 +98,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient && timer <= 0.0f) 
         {
             StartRound();
-            StartCoroutine(SpawnPowerUps());
         }
 
     }
@@ -106,6 +105,11 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     // (MASTER ONLY) This function starts each round, initialising the local player & also selecting the hunter
     void StartRound()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(SpawnPowerUps());
+        }
+        
         Debug.Log("Round is starting!");
 
         int roundsProgress = (int) PhotonNetwork.CurrentRoom.CustomProperties[MarcoPoloGame.ROUNDS_PROGRESS];
@@ -266,7 +270,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
         while(true)
         {
-            skillId = UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length);
+            skillId = UnityEngine.Random.Range(0, MarcoPoloGame.SKILL_COUNT);
             spawnX = x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2);
             spawnY = y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2);
             yield return new WaitForSeconds(MarcoPoloGame.SKILL_SPAWN_INTERVAL);

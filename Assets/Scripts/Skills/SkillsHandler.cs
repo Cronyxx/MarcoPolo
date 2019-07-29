@@ -30,7 +30,7 @@ public class SkillsHandler : MonoBehaviour
         skills[1] = new SkillSlow();
         skills[2] = new SkillFast();
         skills[3] = new SkillEcho();
-        skills[4] = new SkillDash();
+        // skills[4] = new SkillDash();
     }
 
     void Update()

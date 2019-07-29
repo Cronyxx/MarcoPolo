@@ -4,9 +4,9 @@ public static class MarcoPoloGame
 {
     public const int ROUNDS_PER_GAME = 4;
     public const int PLAYERS_IN_MATCH = 1;
-    public const int ROUND_TIME = 60;
+    public const int ROUND_TIME = 20;
 
-    public const int PRE_ROUND_TIME = 10;
+    public const int PRE_ROUND_TIME = 3;
 
     public const string IS_HUNTER = "isHunter";
     public const string IS_ALIVE = "isAlive";
@@ -32,7 +32,7 @@ public static class MarcoPoloGame
 
     public const float ECHO_DELAY = 1.0f;
     public const float HUNTER_REVEAL_CD = 5.0f;
-    public const int SKILL_COUNT = 5;
+    public const int SKILL_COUNT = 4;
 
     #endregion
 

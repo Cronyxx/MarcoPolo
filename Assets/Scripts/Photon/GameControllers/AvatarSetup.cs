@@ -10,17 +10,21 @@ public class AvatarSetup : MonoBehaviourPun
     public AudioListener myAL;
     public GameObject myCharacter;
     public int characterValue;
-    public GameObject playerLight;
+    public GameObject playerLightPrefab;
+    private GameObject myLight;
 
     public Animator animator;
+
+    private bool isMine;
 
     // Start is called before the first frame update
     void Start()
     {
         if (this.photonView.IsMine)
         {
-            Instantiate(playerLight, transform.position, transform.rotation, transform);
-            this.photonView.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
+            isMine = true;
+            myLight = Instantiate(playerLightPrefab, transform.position, transform.rotation, transform);
+            this.photonView.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);   
         }
         else
         {
@@ -39,6 +43,9 @@ public class AvatarSetup : MonoBehaviourPun
             transform.rotation, transform.GetChild(1));
         myCharacter.tag = "Player";
 
+        if(!isMine)
+        {
         myCharacter.GetComponent<Renderer>().material.shader = Resources.Load<Material>("Materials/Sprite_Material").shader;
+        }
     }
 }

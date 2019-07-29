@@ -38,7 +38,7 @@ public class SkillPickup : MonoBehaviour
                                 .Owner
                                 .CustomProperties[MarcoPoloGame.IS_HUNTER];
         
-            if(isOtherHunter)
+            if(!isOtherHunter)
             {
                 pickedUp = true;
                 SkillbarController SC = GameObject.FindObjectOfType<SkillbarController>();
