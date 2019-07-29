@@ -35,13 +35,16 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         PV = GetComponent<PhotonView>();
         SM = GetComponent<ScoreManager>();
 
+        // get gameobjects for skills
+        SkillPickupsPrefabs = new UnityEngine.Object[MarcoPoloGame.SKILL_COUNT];
+        SkillPickupsPrefabs = Resources.LoadAll("PhotonPrefabs/Skills/SkillPickupPrefabs");
+        
         if(PhotonNetwork.IsMasterClient) 
         {
             InitRoom();
             masterClientText.text = "MASTER";
             hunterId = -1;
         }
-        
     }
 
     // Update is called once per frame
@@ -70,12 +73,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
-
-        // get gameobjects for skills
-        SkillPickupsPrefabs = new UnityEngine.Object[MarcoPoloGame.SKILL_COUNT];
-        SkillPickupsPrefabs = Resources.LoadAll("PhotonPrefabs/Skills/SkillPickupPrefabs");
-
-        StartCoroutine(SpawnPowerUps());
     }
 
     // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
@@ -101,6 +98,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient && timer <= 0.0f) 
         {
             StartRound();
+            StartCoroutine(SpawnPowerUps());
         }
 
     }
@@ -149,7 +147,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         } 
         else 
         {
-            
             Debug.Log("Game is not over! We'll proceed with the next round.");
             StartCoroutine(StartPreRound());
         }
@@ -246,6 +243,11 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient) {
             hunterId += 1;
             
+            if(hunterId >= PhotonNetwork.PlayerList.Length - 1)
+            {
+                hunterId = 0;
+            }
+            
             PV.RPC("RPC_SetHunterId", RpcTarget.All, hunterId);
         }
     }
@@ -259,13 +261,16 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         float x = playArea.transform.position.x;
         float y = playArea.transform.position.y;
 
+        float spawnX, spawnY;
+        int skillId;
+
         while(true)
         {
+            skillId = UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length);
+            spawnX = x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2);
+            spawnY = y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2);
             yield return new WaitForSeconds(MarcoPoloGame.SKILL_SPAWN_INTERVAL);
-            PV.RPC("RPC_SpawnPowerUp", RpcTarget.All, x + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_WIDTH / 2, MarcoPoloGame.PLAY_AREA_WIDTH / 2), 
-                y + UnityEngine.Random.Range(-MarcoPoloGame.PLAY_AREA_HEIGHT / 4, MarcoPoloGame.PLAY_AREA_HEIGHT / 2));
-
-            
+            PV.RPC("RPC_SpawnPowerUps", RpcTarget.All, skillId, spawnX, spawnY);
         }
         
     }
@@ -311,17 +316,20 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_SpawnPowerUp(float x, float y) 
+    void RPC_SpawnPowerUps(int skillId, float x, float y) 
     {
-        if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+        if(PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER] != null)
         {
-            GameObject temp = (GameObject) Instantiate(
-                SkillPickupsPrefabs[UnityEngine.Random.Range(0, SkillPickupsPrefabs.Length)], 
-                new Vector3(x, 
-                            y, 
-                            playArea.transform.position.z), 
-                Quaternion.identity, 
-                playArea.transform);
+            if(!(bool) PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_HUNTER])
+            {
+                GameObject temp = (GameObject) Instantiate(
+                    SkillPickupsPrefabs[skillId], 
+                    new Vector3(x, 
+                                y, 
+                                playArea.transform.position.z), 
+                    Quaternion.identity, 
+                    playArea.transform);
+            }
         }
     }
 

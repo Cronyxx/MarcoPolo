@@ -33,13 +33,22 @@ public class SkillPickup : MonoBehaviour
     {
         if(collision.gameObject.GetPhotonView() != null) 
         {
-            pickedUp = true;
-            SkillbarController SC = GameObject.FindObjectOfType<SkillbarController>();
-            SC.OnSkillPickup(this.gameObject, skillId);
+            bool isOtherHunter = (bool) collision.gameObject
+                                .GetPhotonView()
+                                .Owner
+                                .CustomProperties[MarcoPoloGame.IS_HUNTER];
+        
+            if(isOtherHunter)
+            {
+                pickedUp = true;
+                SkillbarController SC = GameObject.FindObjectOfType<SkillbarController>();
+                SC.OnSkillPickup(this.gameObject, skillId);
 
-            this.gameObject.transform.parent = SC.Skill1.transform;
-            this.gameObject.transform.position = SC.Skill1.transform.position;
-            this.gameObject.transform.localScale = new Vector3(30, 30, 1);
+                this.gameObject.transform.parent = SC.Skill1.transform;
+                this.gameObject.transform.position = SC.Skill1.transform.position;
+                this.gameObject.transform.localScale = new Vector3(30, 30, 1);
+            }
+            
         }
     }
 }

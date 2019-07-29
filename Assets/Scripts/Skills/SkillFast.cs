@@ -67,9 +67,9 @@ public class SkillFast : Skill
 
     public override void AddStatusEffect(float timeout)
     {
-        status = Instantiate(statusPrefab);
+        status = MonoBehaviour.Instantiate(statusPrefab);
         status.transform.SetParent(statusBar.transform);
 
-        Destroy(status, timeout);
+        MonoBehaviour.Destroy(status, timeout);
     }
 }
