@@ -22,12 +22,10 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     public bool gameInProgress, roundInProgress;
 
     public GameObject playArea;
-
+    public GameObject[] mapArray;
     public float roundTimer;
 
     int hunterId;
-
-    int playersAlive;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +42,13 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
             InitRoom();
             masterClientText.text = "MASTER";
             hunterId = -1;
+
+            
+            int mapVal = UnityEngine.Random.Range(0, 3);
+            PV.RPC("RPC_ChooseMap", RpcTarget.AllBuffered, mapVal);
         }
+        
+        CI = ((GameObject)PhotonNetwork.LocalPlayer.TagObject).GetComponentInChildren<CharacterInit>();
     }
 
     // Update is called once per frame
@@ -59,7 +63,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
                 gameInProgress = true;
                 PV.RPC("RPC_StartPreRound", RpcTarget.All);
             }
-        }
+        }  
 
     }
 
@@ -95,7 +99,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         }
         
         // Once the pre-game timer has reached 0, our master client will initiate the game
-        if(PhotonNetwork.IsMasterClient && timer <= 0.0f) 
+        if(timer <= 0.0f) 
         {
             StartRound();
         }
@@ -108,53 +112,26 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(SpawnPowerUps());
+            int roundsProgress = (int) PhotonNetwork.CurrentRoom.CustomProperties[MarcoPoloGame.ROUNDS_PROGRESS];
+            roundsProgress ++;
+            Hashtable roomProps = new Hashtable() 
+            {
+                { MarcoPoloGame.ROUNDS_PROGRESS, roundsProgress }
+            };
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
+
+            PV.RPC("RPC_SetInfoText", RpcTarget.All, string.Format("Round {0} of {1}", roundsProgress, MarcoPoloGame.ROUNDS_PER_GAME));
+
+            SelectHunter();
+
+            PV.RPC("RPC_StartRoundTimer", RpcTarget.All);
         }
         
         Debug.Log("Round is starting!");
-
-        int roundsProgress = (int) PhotonNetwork.CurrentRoom.CustomProperties[MarcoPoloGame.ROUNDS_PROGRESS];
-        roundsProgress ++;
-        Hashtable roomProps = new Hashtable() 
-        {
-            { MarcoPoloGame.ROUNDS_PROGRESS, roundsProgress }
-        };
-
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
         
         roundInProgress = true;
 
-        PV.RPC("RPC_SetInfoText", RpcTarget.All, string.Format("Round {0} of {1}", roundsProgress, MarcoPoloGame.ROUNDS_PER_GAME));
-
-        playersAlive = MarcoPoloGame.PLAYERS_IN_MATCH - 1;
-
-        SelectHunter();
-
-        PV.RPC("RPC_StartRoundTimer", RpcTarget.All);
-    }
-
-    // This function ends each round, and checks if the game is over. If not, it continues with the next pre-round and the game continues.
-    void EndRound()
-    {
-        // TODO: End round settings like display round end screen, check if the game has ended etc.
-        Debug.Log("Round is ending!");
-        StopAllCoroutines();
-        roundInProgress = false;
-
-        SM.CalcScore(PhotonNetwork.PlayerList[hunterId], PhotonNetwork.LocalPlayer, true);
-
-        if(IsGameOver()) 
-        {
-            Debug.Log("Game is over! Please get out.");
-            LM.SetLightAll();
-            
-            PV.RPC("RPC_SetInfoText", RpcTarget.All, "Game over! Leave now.");
-        } 
-        else 
-        {
-            Debug.Log("Game is not over! We'll proceed with the next round.");
-            StartCoroutine(StartPreRound());
-        }
-        
     }
 
     // Function to start the round timer
@@ -172,22 +149,24 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
         if(roundTimer <= 0.0f) 
         {
-            EndRound();
-
+            RPC_EndRound();
         }
     }
 
     // Function that returns a boolean; checks if the round is over
     bool IsRoundOver() {
-        // TODO: must check if the round has ended 
-        
-        if(playersAlive == 0) 
+        bool isEnded = true;
+
+        foreach(Player p in PhotonNetwork.PlayerList)
         {
-            return true;
-        } else 
-        {
-            return false;    
+            if((bool) p.CustomProperties[MarcoPoloGame.IS_ALIVE])
+            {
+                isEnded = false;
+                break;
+            }
         }
+
+        return isEnded;
     }
 
     // Function to check if the game is over (hit max no. of rounds)
@@ -215,7 +194,6 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(deadProps);
-        playersAlive--;
     }
 
     // Function to handle the case where the current player has come into contact with a hunter
@@ -230,6 +208,8 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Killing the player since he's alive...");
                 KillPlayer();
+
+                SM.CalcScore(PhotonNetwork.PlayerList[hunterId], PhotonNetwork.LocalPlayer);
             }
 
             if (IsRoundOver())
@@ -287,10 +267,9 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     void RPC_SetHunterId(int newHunterId)
-    {
+    {  
         this.hunterId = newHunterId;
         hunterText.text = "Hunter is " + PhotonNetwork.PlayerList[newHunterId].NickName;
-        CI = ((GameObject)PhotonNetwork.LocalPlayer.TagObject).GetComponentInChildren<CharacterInit>();
         CI.SetCharacter(newHunterId);
     }
 
@@ -309,13 +288,25 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_EndRound() 
     {
-        EndRound();
-    }
-    public override void OnPlayerPropertiesUpdate(Player target, Hashtable changedProps)
-    {
-        // on hunter update init the timer
-        if(changedProps.ContainsKey(MarcoPoloGame.IS_HUNTER)) {
+        // TODO: End round settings like display round end screen, check if the game has ended etc.
+        Debug.Log("Round is ending!");
+        StopAllCoroutines();
+
+        roundInProgress = false;
+
+        SM.CalcScore(PhotonNetwork.PlayerList[hunterId], PhotonNetwork.LocalPlayer, true);
+
+        if(IsGameOver()) 
+        {
+            Debug.Log("Game is over! Please get out.");
+            LM.SetLightAll();
             
+            PV.RPC("RPC_SetInfoText", RpcTarget.All, "Game over! Leave now.");
+        } 
+        else 
+        {
+            Debug.Log("Game is not over! We'll proceed with the next round.");
+            StartCoroutine(StartPreRound());
         }
     }
 
@@ -335,6 +326,12 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
                     playArea.transform);
             }
         }
+    }
+
+    [PunRPC]
+    void RPC_ChooseMap(int val)
+    {
+        mapArray[val].SetActive(true);
     }
 
     #endregion

@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         RB.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
-        GM = GameObject.Find("GameManager").GetComponent<MarcoPoloGameManager>();
+        GM = GameObject.FindObjectOfType<MarcoPoloGameManager>();
         SM = GameObject.Find("GameManager").GetComponent<ScoreManager>();
         SC = GameObject.Find("Canvas/Skillbar").GetComponent<SkillbarController>();
         isMoving = false;
@@ -168,8 +168,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnCollisionStay2D (Collision2D collision)
     {
-        if(collision.gameObject.GetPhotonView() != null) {
-            bool isOtherHunter = (bool) collision.gameObject
+        if(PV.IsMine && collision.collider.gameObject.GetPhotonView() != null) {
+            bool isOtherHunter = (bool) collision.collider.gameObject
                                 .GetPhotonView()
                                 .Owner
                                 .CustomProperties[MarcoPoloGame.IS_HUNTER];
@@ -177,11 +177,6 @@ public class PlayerMovement : MonoBehaviour
             if(isOtherHunter) 
             {
                 GM.HunterTouchEvent();
-               
-                if(GM.roundInProgress)
-                {
-                    SM.CalcScore(collision.gameObject.GetPhotonView().Owner, this.gameObject.GetPhotonView().Owner);
-                }
             }
         }
     }
