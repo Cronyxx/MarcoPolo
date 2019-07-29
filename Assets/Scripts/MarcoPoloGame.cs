@@ -40,7 +40,7 @@ public static class MarcoPoloGame
     public const int SKILL_TYPE_GLOBAL = -1;
     public const int SKILL_TYPE_HUNTER = 0;
     public const int SKILL_TYPE_HUNTED = 1;
-    public const float SKILL_SPAWN_INTERVAL = 5.0f;
+    public const float SKILL_SPAWN_INTERVAL = 0.1f;
     public const float SKILL_FREEZE_DUR = 2.0f;
     public const float SKILL_SLOW_DUR = 4.0f;
     public const float SKILL_SLOW_SPD = 5.0f;
