@@ -26,7 +26,6 @@ public class SkillHunter : MonoBehaviour
     {
         if(isCooldown)
         {
-            Debug.Log("Echo on cd!");
             var val = 1 / cooldownTime * Time.deltaTime;
             imageCooldown.fillAmount += val;
 
@@ -44,6 +43,8 @@ public class SkillHunter : MonoBehaviour
 
     public void OnHunterButtonClick()
     {
+
+        Debug.Log("Player props: " + PhotonNetwork.LocalPlayer.CustomProperties);       
         if(!isCooldown)
         {
             MakeAllEcho();

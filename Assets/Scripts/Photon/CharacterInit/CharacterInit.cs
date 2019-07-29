@@ -28,7 +28,8 @@ public class CharacterInit : MonoBehaviour
         if (PhotonNetwork.PlayerList[newHunterId] == PhotonNetwork.LocalPlayer)
         {
             InitHunter();
-        } else
+        } 
+        else
         {
             InitHunted();
         } 
@@ -42,7 +43,7 @@ public class CharacterInit : MonoBehaviour
                 { MarcoPoloGame.IS_HUNTER, true }
             };
         LM.SetLightHunter();
-        Instantiate(HunterPulse, transform.position, Quaternion.identity, transform);
+        // GameObject tempPulse = Instantiate(HunterPulse, transform.position, Quaternion.identity, transform);
         PhotonNetwork.LocalPlayer.SetCustomProperties(charProps);
     }
 
@@ -54,7 +55,7 @@ public class CharacterInit : MonoBehaviour
                 { MarcoPoloGame.IS_HUNTER, false }
             };
         LM.SetLightHunted();
-        Instantiate(HuntedPulse, transform.position, Quaternion.identity, transform);
+        // GameObject tempPulse = Instantiate(HuntedPulse, transform.position, Quaternion.identity, transform);
         PhotonNetwork.LocalPlayer.SetCustomProperties(charProps);
     }
 }
