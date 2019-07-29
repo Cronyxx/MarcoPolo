@@ -11,6 +11,7 @@ public class SkillsHandler : MonoBehaviour
     Skill[] skills;
     private PlayerMovement PM;
     private MonoBehaviour MB;
+    private AudioSource AD;
     public PhotonView PV;
 
     public GameObject statusBar;
@@ -20,6 +21,7 @@ public class SkillsHandler : MonoBehaviour
         PM = GetComponent<PlayerMovement>();
         PV = GetComponent<PhotonView>();
         MB = GameObject.FindObjectOfType<MonoBehaviour>();
+        AD = GameObject.Find("PowerupSound").GetComponent<AudioSource>();
 
         SkillbarController SB = GameObject.FindObjectOfType<SkillbarController>();
         SB.SH = this;
@@ -40,6 +42,7 @@ public class SkillsHandler : MonoBehaviour
 
     public void UseSkill(int skillId)
     {
+        AD.Play();
         if(skillId == 0 || skillId == 1)
         {
             // on others

@@ -7,17 +7,13 @@ public class SkillPickup : MonoBehaviour
 {
     bool pickedUp;
     public int skillId;
+    private AudioSource AD;
     // Start is called before the first frame update
     void Start()
     {
         pickedUp = false;
         StartCoroutine(DestroyAfterTime());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        AD = GameObject.Find("PickupSound").GetComponent<AudioSource>();
     }
 
     IEnumerator DestroyAfterTime()
@@ -47,6 +43,8 @@ public class SkillPickup : MonoBehaviour
                 this.gameObject.transform.parent = SC.Skill1.transform;
                 this.gameObject.transform.position = SC.Skill1.transform.position;
                 this.gameObject.transform.localScale = new Vector3(30, 30, 1);
+                AD.Play();
+
             }
             
         }

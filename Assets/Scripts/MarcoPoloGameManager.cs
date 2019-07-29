@@ -16,6 +16,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     private ScoreManager SM;
     private LightManager LM;
     private CharacterInit CI;
+    private AudioSource AD;
 
     private UnityEngine.Object[] SkillPickupsPrefabs;
 
@@ -32,6 +33,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     {
         PV = GetComponent<PhotonView>();
         SM = GetComponent<ScoreManager>();
+        AD = GameObject.Find("TouchedSound").GetComponent<AudioSource>();
 
         // get gameobjects for skills
         SkillPickupsPrefabs = new UnityEngine.Object[MarcoPoloGame.SKILL_COUNT];
@@ -202,6 +204,7 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         if(roundInProgress) 
         {
             Debug.Log(PhotonNetwork.LocalPlayer + " touched the hunter!");
+            AD.Play();
 
             // If the player is alive, kill him
             if ((bool)PhotonNetwork.LocalPlayer.CustomProperties[MarcoPoloGame.IS_ALIVE])
