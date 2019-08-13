@@ -56,14 +56,13 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length >= MarcoPoloGame.PLAYERS_IN_MATCH)
         {
-            if (PhotonNetwork.PlayerList.Length >= MarcoPoloGame.PLAYERS_IN_MATCH 
-                    && !roundInProgress
+            if (!roundInProgress
                     && !gameInProgress)
             {
                 gameInProgress = true;
-                PV.RPC("RPC_StartPreRound", RpcTarget.All);
+                StartCoroutine(DelayStartGame());
             }
         }  
 
@@ -81,6 +80,14 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProps);
     }
 
+    // (MASTER ONLY) Delays the start of the game by awhile to give players time to load, and to synchronise the timer.
+    private IEnumerator DelayStartGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+        PV.RPC("RPC_StartPreRound", RpcTarget.AllBuffered);
+        yield break;
+    }
+    
     // This function initiate the pre round (which leads into the round). It gives a 10s timer before each round begins for players to prepare.
     // maybe should destroy cooroutine after preround
     private IEnumerator StartPreRound()
@@ -192,7 +199,8 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
     {
         Hashtable deadProps = new Hashtable
         {
-            { MarcoPoloGame.IS_ALIVE, false }
+            { MarcoPoloGame.IS_ALIVE, false },
+            { MarcoPoloGame.IS_HUNTER, false }
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(deadProps);
@@ -310,7 +318,17 @@ public class MarcoPoloGameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Game is not over! We'll proceed with the next round.");
             StartCoroutine(StartPreRound());
+            
+            foreach(Player player in PhotonNetwork.PlayerList)
+            {
+                GameObject playerObj = (GameObject) player.TagObject;
+                playerObj.transform.GetChild(0).GetChild(1).transform.GetChild(0).
+                    GetComponent<SpriteRenderer>().color = Color.white;
+            }
         }
+
+        // reset colours
+        
     }
 
     [PunRPC]

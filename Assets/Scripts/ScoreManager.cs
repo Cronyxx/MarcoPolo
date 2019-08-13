@@ -32,8 +32,9 @@ public class ScoreManager : MonoBehaviour
         
         if(GM.roundInProgress && !roundEnded)
         {
+            // For when the hunter catches the player
             Debug.Log("Game is in progress!");
-            int hunterScore = (int) (GM.roundTimer) + 30;
+            int hunterScore = (int) (GM.roundTimer);
             int huntedScore = (int) (MarcoPoloGame.ROUND_TIME - GM.roundTimer);
 
             AddScore(hunter, hunterScore);
@@ -55,18 +56,16 @@ public class ScoreManager : MonoBehaviour
             
             if(hunterWin)
             {
-                Debug.Log("The hunter wins! Adding 200 points.");
-                AddScore(hunter, 100);
+                AddScore(hunter, PhotonNetwork.PlayerList.Length * 10);
             }
             else 
             {
-                Debug.Log("Hunter loses! Players alive receive 300 points each.");
                 foreach(Player player in PhotonNetwork.PlayerList)
                 {
                     if(!(bool) player.CustomProperties[MarcoPoloGame.IS_HUNTER]
                         && (bool) player.CustomProperties[MarcoPoloGame.IS_ALIVE])
                     {
-                        AddScore(player, 300);
+                        AddScore(player, MarcoPoloGame.ROUND_TIME + 10);
                     }
                 }
             }

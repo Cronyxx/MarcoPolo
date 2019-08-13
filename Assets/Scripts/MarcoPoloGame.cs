@@ -31,7 +31,7 @@ public static class MarcoPoloGame
     public const float PROJECTILE_SPD = 5.0f;
 
     public const float ECHO_DELAY = 1.0f;
-    public const float HUNTER_REVEAL_CD = 5.0f;
+    public const float HUNTER_REVEAL_CD = 3.0f;
     public const int SKILL_COUNT = 5;
 
     #endregion
@@ -40,15 +40,15 @@ public static class MarcoPoloGame
     public const int SKILL_TYPE_GLOBAL = -1;
     public const int SKILL_TYPE_HUNTER = 0;
     public const int SKILL_TYPE_HUNTED = 1;
-    public const float SKILL_SPAWN_INTERVAL = 2.0f;
-    public const float SKILL_FREEZE_DUR = 2.0f;
-    public const float SKILL_SLOW_DUR = 4.0f;
+    public const float SKILL_SPAWN_INTERVAL = 1.5f;
+    public const float SKILL_FREEZE_DUR = 2.5f;
+    public const float SKILL_SLOW_DUR = 3.0f;
     public const float SKILL_SLOW_SPD = 5.0f;
 
-    public const float SKILL_FAST_DUR = 5.0f;
+    public const float SKILL_FAST_DUR = 3.0f;
     public const float SKILL_FAST_SPD = 15.0f;
 
-    public const float SKILL_ECHO_DUR = 10.0f;
+    public const float SKILL_ECHO_DUR = 5.0f;
 
     #endregion
 }

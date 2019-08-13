@@ -5,7 +5,10 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
+
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
     private MarcoPoloGameManager GM;
@@ -177,6 +180,23 @@ public class PlayerMovement : MonoBehaviour
             if(isOtherHunter) 
             {
                 GM.HunterTouchEvent();
+            }
+        }
+    }
+    public override void OnPlayerPropertiesUpdate(Player target, Hashtable changedProps)
+    {
+        if(PhotonNetwork.LocalPlayer == target  && changedProps.ContainsKey(MarcoPoloGame.IS_ALIVE))
+        {
+            bool isPlayerAlive = (bool) changedProps[MarcoPoloGame.IS_ALIVE];
+            bool isHunter = (bool) changedProps[MarcoPoloGame.IS_HUNTER];
+            if(!isPlayerAlive && !isHunter)
+            {
+                Debug.Log("I'm dead! Not able to move...");
+                this.movementSpeed = 0;    
+            } else 
+            {
+                Debug.Log("I'm alive! Able to move...");
+                this.movementSpeed = MarcoPoloGame.PLAYER_SPEED;
             }
         }
     }

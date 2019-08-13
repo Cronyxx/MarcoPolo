@@ -48,4 +48,10 @@ public class LightManager : MonoBehaviour
         transform.parent.transform.GetChild(1).transform.GetChild(0).
             GetComponent<SpriteRenderer>().color = Color.red;
     }
+
+    public void SetLightDead()
+    {
+        transform.parent.transform.GetChild(1).transform.GetChild(0).
+            GetComponent<SpriteRenderer>().color = Color.gray;
+    }
 }

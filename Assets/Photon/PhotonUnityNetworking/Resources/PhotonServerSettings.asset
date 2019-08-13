@@ -57,5 +57,7 @@ MonoBehaviour:
   - RPC_CreatePulse
   - ChooseMap
   - RPC_ChooseMap
+  - RPC_PlayerDead
+  - RPC_PlayerAlive
   DisableAutoOpenWizard: 1
   ShowSettings: 1
